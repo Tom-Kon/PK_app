@@ -4,7 +4,6 @@ SustFunction <- function(input) {
   generalList <- generalParams(input)
   list2env(generalList, envir = environment())
   
-  
   # Sustained
   GI_sus_list <- list()
   B_sus_list <- list()
@@ -21,19 +20,21 @@ SustFunction <- function(input) {
                     error = function(e) NA)
     if (is.na(t1S) || !is.finite(t1S)) t1S <- 0.1
     
-    # calculate bS and ZS
-    ZS <- (kS * Cs - kS*Cs*exp(-(kS+ka)*t1S))/ (kS + ka)
-    
+    # calculate ZS
+    if (t1S < t_transit) {t_crit <- t1S} else {t_crit <- t_transit}
+
+    ZS <- (kS * Cs - kS*Cs*exp(-(kS+ka)*t_crit))/ (kS + ka)
+
     # piecewise GI per-dose function (returns GI concentration contribution for a single dose)
     GI_sustained_single <- function(tau) {
       y <- numeric(length(tau))
-      idx1 <- tau >= 0 & tau <= t1S
+      idx1 <- tau >= 0 & tau <= t_crit
       if (any(idx1)) {
         y[idx1] <- (kS * Cs - kS*Cs*exp(-(kS+ka)*tau[idx1]))/ (kS + ka)
       }
-      idx2 <- tau > t1S
+      idx2 <- tau > t_crit
       if (any(idx2)) {
-        y[idx2] <- ZS * exp(-ka * (tau[idx2] - t1S))
+        y[idx2] <- ZS * exp(-ka * (tau[idx2] - t_crit))
       }
       y[tau < 0] <- 0
       y

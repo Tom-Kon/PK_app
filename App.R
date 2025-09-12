@@ -12,13 +12,13 @@ if (requireNamespace("rstudioapi", quietly = TRUE) &&
 source("Libraries and notes.R")
 source("Helper functions.R")
 source("UI.R")
-source("General parameters.R")
 source("Immediate release.R")
 source("Sustained release.R")
 source("Additions and final steps.R")
 source("Plots.R")
 
 ui <- fluidPage(
+  withMathJax(),   # <---- This enables LaTeX rendering
   UIFunc()
 )
 

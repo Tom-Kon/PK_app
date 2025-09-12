@@ -6,18 +6,29 @@ palette_hcl <- function(n, h = c(15, 375), c = 100, l = 60) {
 
 generalParams <- function(input){
   # Read parameters
-  k_gi <- input$k_gi        # used as 'ka' in closed-form sustained formula
-  ke   <- input$ke
+  P_eff <- input$P_eff 
+  A_GI <- input$A_GI
+  Vd   <- input$Vd
+  Cl   <- input$Cl
+  weight   <- input$weight
+  
+  ke   <- Cl/(Vd*weight)
   F    <- input$F
+  V   <- input$V_GI
+  t_transit <- input$t_transit
+  
+  k_gi <- P_eff*A_GI/V
 
   sim_sus <- isTRUE(input$simulateSustained)
   sus_delay <- input$sus_delay
-  sus_num   <- input$sus_num
+  # sus_num   <- input$sus_num
+  sus_num <- 1
   sus_interval <- input$sus_interval
   partK <- input$partK
   thickness <- input$thickness/10000
   area <- input$area
-  DS_input <- input$DSustained
+  DS_input <- input$sust_dose
+  DiffSust <- input$D_Sus
   
 
   sim_imm <- isTRUE(input$simulateImmediate)
@@ -27,18 +38,17 @@ generalParams <- function(input){
   imm_interval <- input$imm_interval
   
   # Immediate formulation params (z-factor)
-  D   <- input$D
+  D   <- input$D_Imm
   h   <- input$h
   rho <- input$rho
   r0  <- input$r0
   Cs  <- input$Cs
-  V   <- input$V
   
   # z-factor calculation
   z <- 3 * D / (h * rho * r0)
   
   #k for sustained release calculation
-  kS_input <- D*partK*area/thickness
+  kS_input <- DiffSust*partK*area/thickness/V
     
   
   starts_sus <- if (sim_sus && sus_num > 0) sus_delay + (0:(sus_num - 1)) * sus_interval + 1e-6 else numeric(0)
@@ -47,7 +57,7 @@ generalParams <- function(input){
   
   # Build time grid and include exact dose times
   last_start <- if (length(c(starts_imm, starts_sus)) > 0) max(c(starts_imm, starts_sus)) else 0
-  tail_guess <- max(3 / max(ke, 1e-6), 3 / max(k_gi, 1e-6))  # short tail (alter this to extend the view, if you use a number higher than 3 = longer view, lower than = 3 shorter view)
+  tail_guess <- max(5 / max(ke, 1e-6), 5 / max(k_gi, 1e-6), 5 / max(kS_input, 1e-6))  # short tail (alter this to extend the view, if you use a number higher than 3 = longer view, lower than = 3 shorter view)
   t_end_guess <- last_start + tail_guess
   N <- 8000 #(Higher N means more data points, smoother graph but more demanding of the computer)
   t <- seq(0, t_end_guess, length.out = N)
@@ -55,7 +65,7 @@ generalParams <- function(input){
   dt <- c(diff(t)[1], diff(t))
   
   
-  generalList <- list(k_gi = k_gi, ke = ke, F = F, sim_sus = sim_sus, sus_delay = sus_delay, sus_num = sus_num, 
+  generalList <- list(k_gi = k_gi, ke = ke, F = F, t_transit = t_transit, sim_sus = sim_sus, sus_delay = sus_delay, sus_num = sus_num, 
                       sus_interval = sus_interval, kS_input = kS_input, DS_input = DS_input, sim_imm = sim_imm, imm_delay = imm_delay, 
                       imm_dose = imm_dose, imm_num = imm_num, imm_interval = imm_interval, D = D, h = h, rho = rho, r0 = r0, 
                       Cs = Cs, V = V, z = z, starts_sus = starts_sus, starts_imm = starts_imm, last_start = last_start, tail_guess = tail_guess, 
