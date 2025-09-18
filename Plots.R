@@ -26,31 +26,39 @@ GIPlotFunc <- function(sim, input) {
       }
     }
   } else {
-    #color graph immediate
     if (input$GIview == "immediate") {
       if (nI > 0) {
-        p <- add_trace(p, x = sim$GI_imm_total$x, y = sim$GI_imm_total$y, type = "scatter", mode = "lines",
-                       name = "Immediate (total)", fill = "none", line = list(color = "darkorange"))
+        p <- add_trace(p, x = sim$GI_imm_total$x, y = sim$GI_imm_total$y,
+                       type = "scatter", mode = "lines", name = "Immediate (total)",
+                       fill = "none", line = list(color = "darkorange"))
       } else {
-        p <- add_trace(p, x = sim$GI_total$x, y = sim$GI_total$y, type = "scatter", mode = "lines",
-                       name = "GI (total)", fill = "none")
+        p <- add_trace(p, x = sim$GI_total$x, y = sim$GI_total$y,
+                       type = "scatter", mode = "lines", name = "GI (total)", fill = "none")
       }
-      #color graph sustained
     } else if (input$GIview == "sustained") {
       if (nS > 0) {
-        p <- add_trace(p, x = sim$GI_sus_total$x, y = sim$GI_sus_total$y, type = "scatter", mode = "lines",
-                       name = "Sustained (total)", fill = "none", line = list(color = "steelblue"))
+        p <- add_trace(p, x = sim$GI_sus_total$x, y = sim$GI_sus_total$y,
+                       type = "scatter", mode = "lines", name = "Sustained (total)",
+                       fill = "none", line = list(color = "steelblue"))
       } else {
-        p <- add_trace(p, x = sim$GI_total$x, y = sim$GI_total$y, type = "scatter", mode = "lines",
-                       name = "GI (total)", fill = "none")
+        p <- add_trace(p, x = sim$GI_total$x, y = sim$GI_total$y,
+                       type = "scatter", mode = "lines", name = "GI (total)", fill = "none")
       }
-      # both
     } else {
-      p <- add_trace(p, x = sim$GI_sus_total$x, y = sim$GI_sus_total$y, type = "scatter", mode = "lines",
-                     name = "Sustained (total)", fill = "none", line = list(color = "steelblue"))
-      p <- add_trace(p, x = sim$GI_imm_total$x, y = sim$GI_imm_total$y, type = "scatter", mode = "lines",
-                     name = "Immediate (total)", fill = "none", line = list(color = "darkorange"))
+      p <- add_trace(p, x = sim$GI_sus_total$x, y = sim$GI_sus_total$y,
+                     type = "scatter", mode = "lines", name = "Sustained (total)",
+                     fill = "none", line = list(color = "steelblue"))
+      p <- add_trace(p, x = sim$GI_imm_total$x, y = sim$GI_imm_total$y,
+                     type = "scatter", mode = "lines", name = "Immediate (total)",
+                     fill = "none", line = list(color = "darkorange"))
     }
+  }
+  
+  # --- add ODE overlay ---
+  if (!is.null(sim$GI_sus_listODE)) {
+    p <- add_trace(p, x = sim$GI_sus_listODE$x, y = sim$GI_sus_listODE$y,
+                   type = "scatter", mode = "lines", name = "GI (ODE)",
+                   line = list(color = "black", dash = "dot"), fill = "none")
   }
   
   x_rng <- c(0, sim$last_time)
@@ -58,7 +66,6 @@ GIPlotFunc <- function(sim, input) {
                xaxis = list(title = "Time (h)", range = x_rng),
                yaxis = list(title = "Conc. (GI)"))
 }
-
 
 BloodPlotFunc <- function(sim, input) {
   separate <- isTRUE(input$separateColors)
@@ -85,17 +92,25 @@ BloodPlotFunc <- function(sim, input) {
       }
     }
   } else {
-    # Color graph combined (blood)
     if (input$bloodMode == "combined") {
-      p <- add_trace(p, x = sim$Blood_total$x, y = sim$Blood_total$y, type = "scatter", mode = "lines",
-                     name = "Blood (combined)", fill = "none", line = list(color = "red"))
+      p <- add_trace(p, x = sim$Blood_total$x, y = sim$Blood_total$y,
+                     type = "scatter", mode = "lines", name = "Blood (combined)",
+                     fill = "none", line = list(color = "red"))
     } else {
-      # Color graph seperate (blood)
-      p <- add_trace(p, x = sim$B_sus_total$x, y = sim$B_sus_total$y, type = "scatter", mode = "lines",
-                     name = "Blood (sustained)", legendgroup = "Sustained", fill = "none", line = list(color = "steelblue"))
-      p <- add_trace(p, x = sim$B_imm_total$x, y = sim$B_imm_total$y, type = "scatter", mode = "lines",
-                     name = "Blood (immediate)", legendgroup = "Immediate", fill = "none", line = list(color = "darkorange"))
+      p <- add_trace(p, x = sim$B_sus_total$x, y = sim$B_sus_total$y,
+                     type = "scatter", mode = "lines", name = "Blood (sustained)",
+                     legendgroup = "Sustained", fill = "none", line = list(color = "steelblue"))
+      p <- add_trace(p, x = sim$B_imm_total$x, y = sim$B_imm_total$y,
+                     type = "scatter", mode = "lines", name = "Blood (immediate)",
+                     legendgroup = "Immediate", fill = "none", line = list(color = "darkorange"))
     }
+  }
+  
+  # --- add ODE overlay ---
+  if (!is.null(sim$B_sus_listODE)) {
+    p <- add_trace(p, x = sim$B_sus_listODE$x, y = sim$B_sus_listODE$y,
+                   type = "scatter", mode = "lines", name = "Blood (ODE)",
+                   line = list(color = "black", dash = "dot"), fill = "none")
   }
   
   x_rng <- c(0, sim$last_time)
@@ -103,4 +118,3 @@ BloodPlotFunc <- function(sim, input) {
                xaxis = list(title = "Time (h)", range = x_rng),
                yaxis = list(title = "Conc. (Blood)"))
 }
-  
