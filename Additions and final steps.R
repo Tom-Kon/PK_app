@@ -1,4 +1,4 @@
-finalSteps <- function(B_imm_list, GI_imm_list, B_sus_list, GI_sus_list, t, z) {
+finalSteps <- function(B_imm_list, GI_imm_list, B_sus_list, GI_sus_list, GI_sus_listODE, B_sus_listODE, t) {
   # totals (sum of all per-dose contributions)
   GI_total_vec <- numeric(length(t))
   # combine lists safely: elements of lists are data.frames with $y

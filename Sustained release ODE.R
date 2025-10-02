@@ -50,11 +50,30 @@ SustFunctionODE <- function(input) {
   out <- ode(y = state, times = times, func = pk_model_cumulative, parms = params)
   out_df <- as.data.frame(out)
   
-  # Compute concentrations
-  out_df$C_GI <- cbind(x = t, y = out_df$A_GI / params["V"], group = paste0("Sustained dose ", 1))
-  out_df$C_plasma <- cbind(x = t, y = out_df$A_plasma / params["Vd"], group = paste0("Sustained dose ", 1))
   
-  susResultsODE <- list(GI_sus_list = out_df$C_GI, B_sus_list = out_df$C_plasma, t = t)
+  # Compute concentrations
+  listC_GI <- list()
+  listC_plasma <- list()
+  
+  out_df$C_GI <- data.frame(
+    x = t,
+    y = out_df$A_GI / params["V"],
+    group = paste0("Sustained dose ", 1),
+    stringsAsFactors = FALSE
+  )
+  listC_GI[[1]] <- out_df$C_GI
+  
+  
+  out_df$C_plasma <- data.frame(
+    x = t,
+    y = out_df$A_plasma / params["Vd"],
+    group = paste0("Sustained dose ", 1),
+    stringsAsFactors = FALSE
+  )
+  listC_plasma[[1]] <- out_df$C_plasma
+  
+  
+  susResultsODE <- list(GI_sus_list = listC_GI, B_sus_list = listC_plasma, t = t)
   return(susResultsODE)
 
 }

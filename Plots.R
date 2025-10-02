@@ -7,65 +7,38 @@ GIPlotFunc <- function(sim, input) {
   # color palettes
   nI <- length(sim$GI_imm_list); colsI <- if (nI>0) palette_hcl(nI, h = c(200,500)) else character(0)
   nS <- length(sim$GI_sus_list); colsS <- if (nS>0) palette_hcl(nS, h = c(0,140)) else character(0)
+  nSO <- length(sim$GI_sus_listODE); colsSO <- if (nSO>0) palette_hcl(nSO, h = c(0,140)) else character(0)
+  print(show_sus)
   
-  if (separate) {
-    if (show_sus && nS>0) {
-      for (j in seq_len(nS)) {
-        df <- sim$GI_sus_list[[j]]
-        p <- add_trace(p, x = df$x, y = df$y, type = "scatter", mode = "lines",
-                       name = paste0("Sustained ", j), legendgroup = "Sustained",
-                       line = list(color = colsS[j]), fill = "none")
-      }
+  if (show_sus && nS>0) {
+    for (j in seq_len(nS)) {
+      df <- sim$GI_sus_list[[j]]
+      p <- add_trace(p, x = df$x, y = df$y, type = "scatter", mode = "lines",
+                     name = paste0("Sustained ", j), legendgroup = "Sustained",
+                     line = list(color = colsS[j]), fill = "none")
     }
-    if (show_imm && nI>0) {
-      for (j in seq_len(nI)) {
-        df <- sim$GI_imm_list[[j]]
-        p <- add_trace(p, x = df$x, y = df$y, type = "scatter", mode = "lines",
-                       name = paste0("Immediate ", j), legendgroup = "Immediate",
-                       line = list(color = colsI[j]), fill = "none")
-      }
-    }
-  } else {
-    if (input$GIview == "immediate") {
-      if (nI > 0) {
-        p <- add_trace(p, x = sim$GI_imm_total$x, y = sim$GI_imm_total$y,
-                       type = "scatter", mode = "lines", name = "Immediate (total)",
-                       fill = "none", line = list(color = "darkorange"))
-      } else {
-        p <- add_trace(p, x = sim$GI_total$x, y = sim$GI_total$y,
-                       type = "scatter", mode = "lines", name = "GI (total)", fill = "none")
-      }
-    } else if (input$GIview == "sustained") {
-      if (nS > 0) {
-        p <- add_trace(p, x = sim$GI_sus_total$x, y = sim$GI_sus_total$y,
-                       type = "scatter", mode = "lines", name = "Sustained (total)",
-                       fill = "none", line = list(color = "steelblue"))
-      } else {
-        p <- add_trace(p, x = sim$GI_total$x, y = sim$GI_total$y,
-                       type = "scatter", mode = "lines", name = "GI (total)", fill = "none")
-      }
-    } else {
-      p <- add_trace(p, x = sim$GI_sus_total$x, y = sim$GI_sus_total$y,
-                     type = "scatter", mode = "lines", name = "Sustained (total)",
-                     fill = "none", line = list(color = "steelblue"))
-      p <- add_trace(p, x = sim$GI_imm_total$x, y = sim$GI_imm_total$y,
-                     type = "scatter", mode = "lines", name = "Immediate (total)",
-                     fill = "none", line = list(color = "darkorange"))
+  }
+  if (show_imm && nI>0) {
+    for (j in seq_len(nI)) {
+      df <- sim$GI_imm_list[[j]]
+      p <- add_trace(p, x = df$x, y = df$y, type = "scatter", mode = "lines",
+                     name = paste0("Immediate ", j), legendgroup = "Immediate",
+                     line = list(color = colsI[j]), fill = "none")
     }
   }
   
-  # --- add ODE overlay ---
-  if (!is.null(sim$GI_sus_listODE)) {
-    p <- add_trace(p, x = sim$GI_sus_listODE$x, y = sim$GI_sus_listODE$y,
-                   type = "scatter", mode = "lines", name = "GI (ODE)",
-                   line = list(color = "black", dash = "dot"), fill = "none")
-  }
+  if (show_sus && nSO>0) {
+    for (j in seq_len(nSO)) {
+      df <- sim$GI_sus_listODE[[j]]
+      p <- add_trace(p, x = df$x, y = df$y, type = "scatter", mode = "lines", 
+                     name = paste0("GI (ODE ", j, ")"), legendgroup = "Sustained ODE",
+                     line = list(color = colsSO[j]), fill = "none")
+    }
+  }  
+  return(p)
   
-  x_rng <- c(0, sim$last_time)
-  p %>% layout(title = "GI Concentration",
-               xaxis = list(title = "Time (h)", range = x_rng),
-               yaxis = list(title = "Conc. (GI)"))
 }
+
 
 BloodPlotFunc <- function(sim, input) {
   separate <- isTRUE(input$separateColors)
@@ -75,42 +48,32 @@ BloodPlotFunc <- function(sim, input) {
   nS <- length(sim$B_sus_list); colsS <- if (nS>0) palette_hcl(nS, h = c(0,140)) else character(0)
   
   if (separate) {
-    if (length(sim$B_sus_list) > 0) {
-      for (j in seq_along(sim$B_sus_list)) {
+    if (nS > 0) {
+      for (j in seq_len(nS)) {
         df <- sim$B_sus_list[[j]]
         p <- add_trace(p, x = df$x, y = df$y, type = "scatter", mode = "lines",
                        name = paste0("Sustained ", j, " (blood)"),
                        legendgroup = "Sustained", line = list(color = colsS[j]), fill = "none")
       }
     }
-    if (length(sim$B_imm_list) > 0) {
-      for (j in seq_along(sim$B_imm_list)) {
+    if (nI > 0) {
+      for (j in seq_len(nI)) {
         df <- sim$B_imm_list[[j]]
         p <- add_trace(p, x = df$x, y = df$y, type = "scatter", mode = "lines",
                        name = paste0("Immediate ", j, " (blood)"),
                        legendgroup = "Immediate", line = list(color = colsI[j]), fill = "none")
       }
     }
-  } else {
-    if (input$bloodMode == "combined") {
-      p <- add_trace(p, x = sim$Blood_total$x, y = sim$Blood_total$y,
-                     type = "scatter", mode = "lines", name = "Blood (combined)",
-                     fill = "none", line = list(color = "red"))
-    } else {
-      p <- add_trace(p, x = sim$B_sus_total$x, y = sim$B_sus_total$y,
-                     type = "scatter", mode = "lines", name = "Blood (sustained)",
-                     legendgroup = "Sustained", fill = "none", line = list(color = "steelblue"))
-      p <- add_trace(p, x = sim$B_imm_total$x, y = sim$B_imm_total$y,
-                     type = "scatter", mode = "lines", name = "Blood (immediate)",
-                     legendgroup = "Immediate", fill = "none", line = list(color = "darkorange"))
-    }
   }
   
   # --- add ODE overlay ---
-  if (!is.null(sim$B_sus_listODE)) {
-    p <- add_trace(p, x = sim$B_sus_listODE$x, y = sim$B_sus_listODE$y,
-                   type = "scatter", mode = "lines", name = "Blood (ODE)",
-                   line = list(color = "black", dash = "dot"), fill = "none")
+  if (!is.null(sim$B_sus_listODE) && length(sim$B_sus_listODE) > 0) {
+    for (j in seq_along(sim$B_sus_listODE)) {
+      df <- sim$B_sus_listODE[[j]]
+      p <- add_trace(p, x = df$x, y = df$y,
+                     type = "scatter", mode = "lines", name = paste0("Blood (ODE ", j, ")"),
+                     line = list(color = "black", dash = "dot"), fill = "none")
+    }
   }
   
   x_rng <- c(0, sim$last_time)
