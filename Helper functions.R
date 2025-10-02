@@ -65,7 +65,7 @@ generalParams <- function(input){
   dt <- c(diff(t)[1], diff(t))
   
   
-  generalList <- list(k_gi = k_gi, ke = ke, F = F, t_transit = t_transit, sim_sus = sim_sus, sus_delay = sus_delay, sus_num = sus_num, 
+  generalList <- list(Vd = Vd, k_gi = k_gi, ke = ke, F = F, t_transit = t_transit, sim_sus = sim_sus, sus_delay = sus_delay, sus_num = sus_num, 
                       sus_interval = sus_interval, kS_input = kS_input, DS_input = DS_input, sim_imm = sim_imm, imm_delay = imm_delay, 
                       imm_dose = imm_dose, imm_num = imm_num, imm_interval = imm_interval, D = D, h = h, rho = rho, r0 = r0, 
                       Cs = Cs, V = V, z = z, starts_sus = starts_sus, starts_imm = starts_imm, last_start = last_start, tail_guess = tail_guess, 
