@@ -7,7 +7,6 @@ SustFunction <- function(input) {
   # Sustained
   GI_sus_list <- list()
   B_sus_list <- list()
-  switch <- TRUE
   if (length(starts_sus) > 0) {
     ka <- k_gi
     kS <- kS_input
@@ -22,10 +21,7 @@ SustFunction <- function(input) {
     if (is.na(t1S) || !is.finite(t1S)) t1S <- 0.1
     
     # calculate ZS
-    if(switch) {
-      if (t1S < t_transit) {t_crit <- t1S} else {t_crit <- t_transit}
-    } else
-      t_crit <- t_crit
+    if (t1S < t_transit) {t_crit <- t1S} else {t_crit <- t_transit}
 
     ZS <- (kS * Cs - kS*Cs*exp(-(kS+ka)*t_crit))/ (kS + ka)
 
