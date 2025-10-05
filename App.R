@@ -17,10 +17,12 @@ source("Sustained release.R")
 source("Additions and final steps.R")
 source("Plots.R")
 
-ui <- fluidPage(
-  withMathJax(),   # <---- This enables LaTeX rendering
-  UIFunc()
+custom_theme <- bs_theme(
+  version = 5,
+  preset = "lumen",
 )
+
+ui <- UIFunc(custom_theme)
 
 server <- function(input, output, session) {
   simulate_model <- reactive({

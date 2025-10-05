@@ -17,7 +17,7 @@ ImmFunction <- function(input) {
         for (i in seq(start_idx + 1, length(t))) {
           dti <- t[i] - t[i-1]
           M23 <- if (M > 0) M^(2/3) else 0
-          dMdt <- - z * (M0)^(1/3) * M23 * (Cs - (M0 - M) / V)
+          dMdt <- - z*M23*(Cs-M/V)
           dM <- dMdt * dti
           newM <- M + dM
           if (newM < 0) newM <- 0
@@ -34,17 +34,42 @@ ImmFunction <- function(input) {
   # ---- Calculate per-dose GI and Blood contributions for immediate ----
   GI_imm_list <- list(); B_imm_list <- list()
   for (j in seq_along(release_imm_list)) {
-    rel <- release_imm_list[[j]]
-    GI_j <- numeric(length(t))
-    B_j  <- numeric(length(t))
+    # r is the mass released (dM_diss) during each time interval dti
+    dM_diss <- release_imm_list[[j]] 
+    
+    M_GI <- numeric(length(t)) # M_GI is the MASS (mg) in the GI fluid
+    C_B <- numeric(length(t))  # C_B is the CONCENTRATION (mg/L) in the Blood
+    
     for (i in 2:length(t)) {
       dti <- t[i] - t[i-1]
-      GI_j[i] <- GI_j[i-1] + rel[i] - k_gi * GI_j[i-1] * dti
-      blood_in <- F * k_gi * GI_j[i-1] * dti
-      B_j[i] <- B_j[i-1] + blood_in - ke * B_j[i-1] * dti
+      
+      # 1. GI Compartment (Mass Balance)
+      # Rate In (from dissolution): dM_diss[i] is the mass change over dti
+      R_diss_rate <- dM_diss[i] / dti 
+      
+      # Rate Out (Absorption to Blood): R_abs = k_gi * M_GI
+      R_abs_rate <- k_gi * M_GI[i-1] 
+      
+      # dM_GI/dt = R_diss_rate - R_abs_rate
+      M_GI[i] <- M_GI[i-1] + (R_diss_rate - R_abs_rate) * dti
+      M_GI[i] <- max(M_GI[i], 0) 
+      
+      # 2. Blood Compartment (Concentration Balance)
+      # Rate In (Absorption): R_abs_C = F * R_abs_rate / Vd
+      # R_abs_C = F * (k_gi * M_GI) / Vd
+      R_abs_C <- F * k_gi * M_GI[i-1] / Vd
+      
+      # Rate Out (Elimination): R_elim_C = ke * C_B
+      R_elim_C <- ke * C_B[i-1]
+      
+      # dC_B/dt = R_abs_C - R_elim_C
+      C_B[i] <- C_B[i-1] + (R_abs_C - R_elim_C) * dti
+      C_B[i] <- max(C_B[i], 0)
     }
-    GI_imm_list[[j]] <- data.frame(x = t, y = GI_j, group = paste0("Immediate dose ", j))
-    B_imm_list[[j]]  <- data.frame(x = t, y = B_j,  group = paste0("Immediate dose ", j))
+    
+    # Store results
+    GI_imm_list[[j]] <- data.frame(x = t, y = M_GI / V, group = paste0("Immediate dose ", j)) # Convert M_GI back to C_GI for plotting
+    B_imm_list[[j]]  <- data.frame(x = t, y = C_B, group = paste0("Immediate dose ", j)) 
   }
   
  immResults <- list(GI_imm_list = GI_imm_list, B_imm_list = B_imm_list, t = t, z=z)

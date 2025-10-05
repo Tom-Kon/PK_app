@@ -30,7 +30,7 @@ GIPlotFunc <- function(sim, input) {
     if (input$GIview == "immediate") {
       if (nI > 0) {
         p <- add_trace(p, x = sim$GI_imm_total$x, y = sim$GI_imm_total$y, type = "scatter", mode = "lines",
-                       name = "Immediate (total)", fill = "none", line = list(color = "darkorange"))
+                       name = "Immediate release", fill = "none", line = list(color = "darkorange"))
       } else {
         p <- add_trace(p, x = sim$GI_total$x, y = sim$GI_total$y, type = "scatter", mode = "lines",
                        name = "GI (total)", fill = "none")
@@ -39,7 +39,7 @@ GIPlotFunc <- function(sim, input) {
     } else if (input$GIview == "sustained") {
       if (nS > 0) {
         p <- add_trace(p, x = sim$GI_sus_total$x, y = sim$GI_sus_total$y, type = "scatter", mode = "lines",
-                       name = "Sustained (total)", fill = "none", line = list(color = "steelblue"))
+                       name = "Sustained release", fill = "none", line = list(color = "steelblue"))
       } else {
         p <- add_trace(p, x = sim$GI_total$x, y = sim$GI_total$y, type = "scatter", mode = "lines",
                        name = "GI (total)", fill = "none")
@@ -47,21 +47,23 @@ GIPlotFunc <- function(sim, input) {
       # both
     } else {
       p <- add_trace(p, x = sim$GI_sus_total$x, y = sim$GI_sus_total$y, type = "scatter", mode = "lines",
-                     name = "Sustained (total)", fill = "none", line = list(color = "steelblue"))
+                     name = "Sustained release", fill = "none", line = list(color = "steelblue"))
       p <- add_trace(p, x = sim$GI_imm_total$x, y = sim$GI_imm_total$y, type = "scatter", mode = "lines",
-                     name = "Immediate (total)", fill = "none", line = list(color = "darkorange"))
+                     name = "Immediate release", fill = "none", line = list(color = "darkorange"))
     }
   }
   
-  x_rng <- c(0, sim$last_time)
+  x_rng <- c(0, sim$last_timeGI)
   p %>% layout(title = "GI Concentration",
                xaxis = list(title = "Time (h)", range = x_rng),
-               yaxis = list(title = "Conc. (GI)"))
+               yaxis = list(title = "Concentration in GI tract (mg/mL)"))
 }
 
 
 BloodPlotFunc <- function(sim, input) {
   separate <- isTRUE(input$separateColors)
+  bloodMode <- if (length(input$bloodMode) > 0) input$bloodMode else "not combined"
+  
   
   p <- plot_ly()
   nI <- length(sim$B_imm_list); colsI <- if (nI>0) palette_hcl(nI, h = c(200,500)) else character(0)
@@ -86,21 +88,21 @@ BloodPlotFunc <- function(sim, input) {
     }
   } else {
     # Color graph combined (blood)
-    if (input$bloodMode == "combined") {
-      p <- add_trace(p, x = sim$Blood_total$x, y = sim$Blood_total$y, type = "scatter", mode = "lines",
-                     name = "Blood (combined)", fill = "none", line = list(color = "red"))
+    if (bloodMode == "combined") {
+      # p <- add_trace(p, x = sim$Blood_total$x, y = sim$Blood_total$y, type = "scatter", mode = "lines",
+      #                name = "Blood (combined)", fill = "none", line = list(color = "red"))
     } else {
-      # Color graph seperate (blood)
+      # Color graph separate (blood)
       p <- add_trace(p, x = sim$B_sus_total$x, y = sim$B_sus_total$y, type = "scatter", mode = "lines",
-                     name = "Blood (sustained)", legendgroup = "Sustained", fill = "none", line = list(color = "steelblue"))
+                     name = "Sustained release", legendgroup = "Sustained", fill = "none", line = list(color = "steelblue"))
       p <- add_trace(p, x = sim$B_imm_total$x, y = sim$B_imm_total$y, type = "scatter", mode = "lines",
-                     name = "Blood (immediate)", legendgroup = "Immediate", fill = "none", line = list(color = "darkorange"))
+                     name = "Immediate release", legendgroup = "Immediate", fill = "none", line = list(color = "darkorange"))
     }
   }
   
-  x_rng <- c(0, sim$last_time)
+  x_rng <- c(0, sim$last_timeBlood)
   p %>% layout(title = "Blood Concentration",
                xaxis = list(title = "Time (h)", range = x_rng),
-               yaxis = list(title = "Conc. (Blood)"))
+               yaxis = list(title = "Concentration in blood (mg/mL)"))
 }
   

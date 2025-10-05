@@ -48,7 +48,7 @@ SustFunction <- function(input) {
       B_j_vec <- numeric(length(t))
       for (i in 2:length(t)) {
         dti <- t[i] - t[i-1]
-        B_j_vec[i] <- B_j_vec[i-1] * exp(-ke * dti) + F * GI_j_vec[i-1] * dti
+        B_j_vec[i] <- B_j_vec[i-1] * exp(-ke * dti) + F * ka*V/Vd * GI_j_vec[i-1] * dti
       }
       GI_sus_list[[j]] <- data.frame(x = t, y = GI_j_vec, group = paste0("Sustained dose ", j))
       B_sus_list[[j]]  <- data.frame(x = t, y = B_j_vec,  group = paste0("Sustained dose ", j))
