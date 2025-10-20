@@ -50,8 +50,8 @@ finalSteps <- function(B_imm_list, GI_imm_list, B_sus_list, GI_sus_list, t, z) {
     if (length(keep_idxBlood) == 0) keep_idxBlood <- seq_len(min(50, length(t)))
   }
   
-  t_trimGI <- t[keep_idxGI]
-  t_trimBlood <- t[keep_idxBlood]
+  t_trimGI <- t[keep_idxGI]/3600
+  t_trimBlood <- t[keep_idxBlood]/3600
   
   GI_total_df    <- data.frame(x = t_trimGI, y = GI_total_vec[keep_idxGI], group = "GI total")
   Blood_total_df <- data.frame(x = t_trimBlood, y = Blood_total_vec[keep_idxBlood], group = "Blood total")

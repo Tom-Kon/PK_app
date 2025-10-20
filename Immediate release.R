@@ -68,8 +68,8 @@ ImmFunction <- function(input) {
     }
     
     # Store results
-    GI_imm_list[[j]] <- data.frame(x = t, y = M_GI / V, group = paste0("Immediate dose ", j)) # Convert M_GI back to C_GI for plotting
-    B_imm_list[[j]]  <- data.frame(x = t, y = C_B, group = paste0("Immediate dose ", j)) 
+    GI_imm_list[[j]] <- data.frame(x = t, y = M_GI / V*1000000, group = paste0("Immediate dose ", j)) # Convert M_GI back to C_GI for plotting and from kg/L to g/mL
+    B_imm_list[[j]]  <- data.frame(x = t, y = C_B*1000000, group = paste0("Immediate dose ", j)) # from kg/L to g/mL
   }
   
  immResults <- list(GI_imm_list = GI_imm_list, B_imm_list = B_imm_list, t = t, z=z)

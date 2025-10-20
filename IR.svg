@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 4382 2488" xmlns="http://www.w3.org/2000/svg" overflow="hidden">
+  <g transform="translate(-26 -120)">
+    <path d="M26.0001 1178.5C26.0001 891.588 258.588 659 545.5 659 832.412 659 1065 891.588 1065 1178.5 1065 1465.41 832.412 1698 545.5 1698 258.588 1698 26.0001 1465.41 26.0001 1178.5Z" fill="#00B0F0" fill-rule="evenodd"/>
+    <path d="M91.0001 1178C91.0001 926.71 294.487 723 545.5 723 796.513 723 1000 926.71 1000 1178 1000 1429.29 796.513 1633 545.5 1633 294.487 1633 91.0001 1429.29 91.0001 1178Z" fill="#4EA72E" fill-rule="evenodd"/>
+    <path d="M1133 1135.12 1605.85 1135.13 1605.85 1148.88 1133 1148.87ZM1598.97 1121.38 1640.22 1142 1598.97 1162.63Z" fill="#156082"/>
+    <path d="M1742 1149.5C1742 880.261 1960.04 662 2229 662 2497.96 662 2716 880.261 2716 1149.5 2716 1418.74 2497.96 1637 2229 1637 1960.04 1637 1742 1418.74 1742 1149.5Z" fill="#00B0F0" fill-rule="evenodd"/>
+    <path d="M1807 1149.5C1807 916.16 1995.94 727 2229 727 2462.06 727 2651 916.16 2651 1149.5 2651 1382.84 2462.06 1572 2229 1572 1995.94 1572 1807 1382.84 1807 1149.5Z" fill="#4EA72E" fill-rule="evenodd"/>
+    <path d="M2794 1126.12 3266.85 1126.13 3266.85 1139.88 2794 1139.88ZM3259.97 1112.38 3301.22 1133 3259.97 1153.63Z" fill="#156082"/>
+    <path d="M3393 1144.5C3393 947.058 3548.58 787 3740.5 787 3932.42 787 4088 947.058 4088 1144.5 4088 1341.94 3932.42 1502 3740.5 1502 3548.58 1502 3393 1341.94 3393 1144.5Z" fill="#00B0F0" fill-rule="evenodd"/>
+    <path d="M3458 1144.5C3458 982.957 3585.38 852 3742.5 852 3899.63 852 4027 982.957 4027 1144.5 4027 1306.04 3899.63 1437 3742.5 1437 3585.38 1437 3458 1306.04 3458 1144.5Z" fill="#4EA72E" fill-rule="evenodd"/>
+    <path d="M1369.94 1022.23 1349.48 1075.94 1386.86 1075.94ZM1368.06 1010.36 1376.01 1010.36 1398.68 1081.1 1398.68 1084.54 1339.97 1084.54 1339.97 1081.1Z" fill-rule="evenodd"/>
+    <text fill="#000000" fill-opacity="0" font-family="Arial,Arial_MSFontService,sans-serif" font-size="74.1748" x="1339.97" y="1075.27" style="white-space: pre;">∆</text>
+    <path d="M1423.55 1019.92 1430.96 1019.92 1428 1033.19 1444.33 1033.19 1443.15 1038.61 1426.82 1038.61 1422.04 1059.45C1421.11 1063.5 1420.52 1066.41 1420.27 1068.18 1420.02 1069.95 1419.89 1071.38 1419.89 1072.45 1419.89 1076.89 1421.74 1079.11 1425.43 1079.11 1427 1079.11 1428.68 1078.51 1430.45 1077.31 1432.22 1076.11 1434.32 1074.06 1436.76 1071.16L1439.87 1074.39C1436.76 1078.15 1433.76 1080.92 1430.88 1082.71 1427.99 1084.5 1424.98 1085.4 1421.83 1085.4 1414.34 1085.4 1410.6 1081.62 1410.6 1074.06 1410.6 1071.66 1410.91 1069.14 1411.51 1066.49L1417.85 1038.61 1408.83 1038.61 1409.63 1034.91C1411.75 1034.87 1413.35 1034.71 1414.44 1034.43 1415.53 1034.14 1416.45 1033.74 1417.18 1033.24 1417.92 1032.74 1418.59 1032.03 1419.2 1031.09 1419.8 1030.16 1420.39 1028.97 1420.97 1027.52 1421.54 1026.07 1422.4 1023.54 1423.55 1019.92Z" fill-rule="evenodd"/>
+    <text fill="#000000" fill-opacity="0" font-family="Arial,Arial_MSFontService,sans-serif" font-size="65.4736" x="1408.83" y="1077.21" style="white-space: pre;">𝑡</text>
+    <path d="M3026.17 1022.23 3005.71 1075.94 3043.09 1075.94ZM3024.29 1010.36 3032.24 1010.36 3054.91 1081.1 3054.91 1084.54 2996.2 1084.54 2996.2 1081.1Z" fill-rule="evenodd"/>
+    <text fill="#000000" fill-opacity="0" font-family="Arial,Arial_MSFontService,sans-serif" font-size="74.1748" x="2996.2" y="1075.27" style="white-space: pre;">∆</text>
+    <path d="M3079.78 1019.92 3087.19 1019.92 3084.24 1033.19 3100.56 1033.19 3099.38 1038.61 3083.05 1038.61 3078.27 1059.45C3077.34 1063.5 3076.75 1066.41 3076.5 1068.18 3076.25 1069.95 3076.12 1071.38 3076.12 1072.45 3076.12 1076.89 3077.97 1079.11 3081.66 1079.11 3083.23 1079.11 3084.91 1078.51 3086.68 1077.31 3088.45 1076.11 3090.56 1074.06 3092.99 1071.16L3096.11 1074.39C3092.99 1078.15 3089.99 1080.92 3087.11 1082.71 3084.23 1084.5 3081.21 1085.4 3078.06 1085.4 3070.57 1085.4 3066.83 1081.62 3066.83 1074.06 3066.83 1071.66 3067.14 1069.14 3067.75 1066.49L3074.08 1038.61 3065.06 1038.61 3065.87 1034.91C3067.98 1034.87 3069.58 1034.71 3070.67 1034.43 3071.77 1034.14 3072.68 1033.74 3073.41 1033.24 3074.15 1032.74 3074.82 1032.03 3075.43 1031.09 3076.04 1030.16 3076.63 1028.97 3077.2 1027.52 3077.77 1026.07 3078.63 1023.54 3079.78 1019.92Z" fill-rule="evenodd"/>
+    <text fill="#000000" fill-opacity="0" font-family="Arial,Arial_MSFontService,sans-serif" font-size="65.4736" x="3065.06" y="1077.21" style="white-space: pre;">𝑡</text>
+    <rect x="142" y="2165" width="418" height="42" fill="#00B0F0"/>
+    <rect x="142" y="1992" width="418" height="41.9999" fill="#4EA72E"/>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 628.782 2039)" style="white-space: pre;">= </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 689.511 2039)" style="white-space: pre;">solid</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 878.574 2039)" style="white-space: pre;">API </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="1021.64" y="2039">core</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 628.782 2212)" style="white-space: pre;">= </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 689.511 2212)" style="white-space: pre;">diffusion</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 1017.22 2212)" style="white-space: pre;">layer</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="700" font-size="83" transform="matrix(1 0 0 1 1881.23 1806)" style="white-space: pre;">Implicit</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="700" font-size="83" style="white-space: pre; font-size: 83px;" x="2195.17" y="1806">assumptions</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="700" font-size="83" transform="matrix(1 0 0 1 2675.87 1806)" style="white-space: pre;">: </text>
+    <text font-family="Arial,Arial_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 1881.23 1905)" style="white-space: pre;">•</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="1979.36" y="1905">Area of </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="2269.22" y="1905">the</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="2397.56" y="1905">formulation</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="2817.32" y="1905">is </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 2889.52 1905)" style="white-space: pre;">not</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 3023.58 1905)" style="white-space: pre;">constant, but </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 3516.06 1905)" style="white-space: pre;">only</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 3681.64 1905)" style="white-space: pre;">changes </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="4008.58" y="1905">through</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 1984.36 2004)" style="white-space: pre;">dissolution </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 2396.29 2004)" style="white-space: pre;">and</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 2548.68 2004)" style="white-space: pre;">diffusion</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 2876.39 2004)" style="white-space: pre;">–</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 2930.82 2004)" style="white-space: pre;">no </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 3037.95 2004)" style="white-space: pre;">sudden</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 3322.12 2004)" style="white-space: pre;">breaking</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="3652.12" y="2004">for </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="3764.08" y="2004">example</text>
+    <text font-family="Arial,Arial_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 1881.23 2103)" style="white-space: pre;">•</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 1984.36 2103)" style="white-space: pre;">Concentration</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 2513.41 2103)" style="white-space: pre;">outside</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 2797.26 2103)" style="white-space: pre;">of </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 2883.77 2103)" style="white-space: pre;">formulation</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 3314.53 2103)" style="white-space: pre;">relatively</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 3650.47 2103)" style="white-space: pre;">constant (= </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 4068.47 2103)" style="white-space: pre;">sink</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 4213.42 2103)" style="white-space: pre;">)</text>
+    <text font-family="Arial,Arial_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 1881.23 2202)" style="white-space: pre;">•</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 1984.36 2202)" style="white-space: pre;">Concentration</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 2513.41 2202)" style="white-space: pre;">at </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="2598.34" y="2202">edge</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="2794.95" y="2202">core</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="2953.67" y="2202">/</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="2977.79" y="2202">diffusion</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="3301.5" y="2202">layer</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="3492.82" y="2202">is constant </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="3903.22" y="2202">and</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="4057.62" y="2202">equal</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 1984.36 2301)" style="white-space: pre;">to</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 2072.75 2301)" style="white-space: pre;">saturation</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 2450.97 2301)" style="white-space: pre;">concentration</text>
+    <text font-family="Arial,Arial_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 1881.23 2400)" style="white-space: pre;">•</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 1984.36 2400)" style="white-space: pre;">Diffusion</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 2322.38 2400)" style="white-space: pre;">layer</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="2523.69" y="2400">thickness</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="2886.63" y="2400">is constant</text>
+    <path d="M10.3125-1.01699e-05 10.3128 314.391-10.3122 314.391-10.3125 1.01699e-05ZM30.9378 304.079 0.000360892 365.954-30.9372 304.079Z" fill="#4EA72E" transform="matrix(1 0 0 -1 545.5 747.454)"/>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 175.008 240)" style="white-space: pre;">API </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="327.07" y="240">diffusion</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="647.778" y="240">through</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 175.008 339)" style="white-space: pre;">diffusion</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 502.716 339)" style="white-space: pre;">layer</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 692.03 339)" style="white-space: pre;">to</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 780.42 339)" style="white-space: pre;">GI </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 876.67 339)" style="white-space: pre;">tract</text>
+    <path d="M10.3125-1.01699e-05 10.3128 314.391-10.3122 314.391-10.3125 1.01699e-05ZM30.9378 304.079 0.000360892 365.954-30.9372 304.079Z" fill="#4EA72E" transform="matrix(1 0 0 -1 2226.5 728.454)"/>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="1857.79" y="221">API </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="2011.85" y="221">diffusion</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="2338.56" y="221">through</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 1855.79 320)" style="white-space: pre;">diffusion</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 2183.5 320)" style="white-space: pre;">layer</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 2372.81 320)" style="white-space: pre;">to</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 2461.2 320)" style="white-space: pre;">GI </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 2557.45 320)" style="white-space: pre;">tract</text>
+    <path d="M10.3125-1.01699e-05 10.3128 314.391-10.3122 314.391-10.3125 1.01699e-05ZM30.9378 304.079 0.000360892 365.954-30.9372 304.079Z" fill="#4EA72E" transform="matrix(1 0 0 -1 3737.5 852.453)"/>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 3366.52 346)" style="white-space: pre;">API </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="3517.58" y="346">diffusion</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="3839.29" y="346">through</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 3366.52 445)" style="white-space: pre;">diffusion</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" transform="matrix(1 0 0 1 3694.23 445)" style="white-space: pre;">layer</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="3890.54" y="445">to</text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="3979.93" y="445">GI </text>
+    <text font-family="Aptos,Aptos_MSFontService,sans-serif" font-weight="400" font-size="83" style="white-space: pre; font-size: 83px;" x="4078.18" y="445">tract</text>
+  </g>
+</svg>

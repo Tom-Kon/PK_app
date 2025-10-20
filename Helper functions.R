@@ -4,45 +4,47 @@ palette_hcl <- function(n, h = c(15, 375), c = 100, l = 60) {
   grDevices::hcl(h = seq(h[1], h[2], length.out = n + 1)[1:n], c = c, l = l)
 }
 
+# IMPORTANT NOTE: EVERYTHING IS CONVERTED TO SECONDS, LITER, KILOGRAM, AND M.  
+
 generalParams <- function(input){
   # Read parameters
   P_eff <- input$P_eff 
-  A_GI <- input$A_GI
+  A_GI <- input$A_GI/10000
   Vd   <- input$Vd*input$weight
-  Cl   <- input$Cl
-  weight   <- input$weight
+  weight <- input$weight
+  Cl   <- input$Cl/60*weight/1000
+  Cs  <- input$Cs/1000
   
-  ke   <- Cl/(Vd*weight)
+  ke   <- Cl/Vd
   F    <- input$F
-  V   <- input$V_GI
-  t_transit <- input$t_transit
+  V   <- input$V_GI/1000
+  t_transit <- input$t_transit*3600
   
   k_gi <- P_eff*A_GI/V
 
   sim_sus <- isTRUE(input$simulateSustained)
-  sus_delay <- input$sus_delay
+  sus_delay <- input$sus_delay*3600
   # sus_num   <- input$sus_num
   sus_num <- 1
   sus_interval <- 1
   partK <- input$partK
-  thickness <- input$thickness/10000
-  area <- input$area
-  DS_input <- input$sust_dose
-  DiffSust <- input$D_Sus
+  thickness <- input$thickness/1000000
+  area <- input$area/10000
+  DS_input <- input$sust_dose/1000000
+  DiffSust <- input$D_Sus/10000
   
 
   sim_imm <- isTRUE(input$simulateImmediate)
-  imm_delay <- input$imm_delay
-  imm_dose  <- input$imm_dose      
+  imm_delay <- input$imm_delay*3600
+  imm_dose  <- input$imm_dose/1000000      
   imm_num   <- input$imm_num
-  imm_interval <- input$imm_interval
+  imm_interval <- input$imm_interval*3600
   
   # Immediate formulation params (z-factor)
   D   <- input$D_Imm
-  h   <- input$h
-  rho <- input$rho
-  r0  <- input$r0
-  Cs  <- input$Cs
+  h   <- input$h/1000000
+  rho <- input$rho #No need for conversion because g/mL = kg/L
+  r0  <- input$r0/100
   
   # z-factor calculation
   z <- 4 * pi*D/h*(3/(4*rho*pi))^(2/3)
@@ -59,7 +61,7 @@ generalParams <- function(input){
   last_start <- if (length(c(starts_imm, starts_sus)) > 0) max(c(starts_imm, starts_sus)) else 0
   tail_guess <- max(5 / max(ke, 1e-6), 5 / max(k_gi, 1e-6), 5 / max(kS_input, 1e-6))  # short tail (alter this to extend the view, if you use a number higher than 3 = longer view, lower than = 3 shorter view)
   t_end_guess <- last_start + tail_guess
-  N <- 100000 #(Higher N means more data points, smoother graph but more demanding of the computer)
+  N <- 200000 #(Higher N means more data points, smoother graph but more demanding of the computer)
   t <- seq(0, t_end_guess, length.out = N)
   t <- sort(unique(c(t, starts_imm, starts_sus)))
   dt <- c(diff(t)[1], diff(t))

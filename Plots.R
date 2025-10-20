@@ -54,16 +54,15 @@ GIPlotFunc <- function(sim, input) {
   }
   
   x_rng <- c(0, sim$last_timeGI)
-  p %>% layout(title = "GI Concentration",
+  p %>% layout(title = "API concentration in the gastrointestinal tract",
                xaxis = list(title = "Time (h)", range = x_rng),
-               yaxis = list(title = "Concentration in GI tract (mg/mL)"))
+               yaxis = list(title = "Concentration in GI tract (µg/mL)"))
 }
 
 
-BloodPlotFunc <- function(sim, input) {
+BloodPlotFunc <- function(sim, input, therWindMin = input$therWindMin, therWindMax = input$therWindMax) {
   separate <- isTRUE(input$separateColors)
   bloodMode <- if (length(input$bloodMode) > 0) input$bloodMode else "not combined"
-  
   
   p <- plot_ly()
   nI <- length(sim$B_imm_list); colsI <- if (nI>0) palette_hcl(nI, h = c(200,500)) else character(0)
@@ -87,12 +86,9 @@ BloodPlotFunc <- function(sim, input) {
       }
     }
   } else {
-    # Color graph combined (blood)
     if (bloodMode == "combined") {
-      # p <- add_trace(p, x = sim$Blood_total$x, y = sim$Blood_total$y, type = "scatter", mode = "lines",
-      #                name = "Blood (combined)", fill = "none", line = list(color = "red"))
+      # combined plotting (optional)
     } else {
-      # Color graph separate (blood)
       p <- add_trace(p, x = sim$B_sus_total$x, y = sim$B_sus_total$y, type = "scatter", mode = "lines",
                      name = "Sustained release", legendgroup = "Sustained", fill = "none", line = list(color = "steelblue"))
       p <- add_trace(p, x = sim$B_imm_total$x, y = sim$B_imm_total$y, type = "scatter", mode = "lines",
@@ -101,8 +97,32 @@ BloodPlotFunc <- function(sim, input) {
   }
   
   x_rng <- c(0, sim$last_timeBlood)
-  p %>% layout(title = "Blood Concentration",
-               xaxis = list(title = "Time (h)", range = x_rng),
-               yaxis = list(title = "Concentration in blood (mg/mL)"))
-}
   
+  # ---- Add therapeutic window shading if requested ----
+  if (isTRUE(input$showTherWind)) {
+    # First line (min)
+    p <- add_trace(p, x = x_rng, y = c(therWindMin, therWindMin),
+                   type = "scatter", mode = "lines",
+                   line = list(dash = "dot", color = "grey"),
+                   name = "Therapeutic Min", showlegend = FALSE)
+    # Second line (max)
+    p <- add_trace(p, x = x_rng, y = c(therWindMax, therWindMax),
+                   type = "scatter", mode = "lines",
+                   line = list(dash = "dot", color = "grey"),
+                   name = "Therapeutic Max", showlegend = FALSE)
+    
+    # Filled area between
+    p <- add_trace(p,
+                   x = c(x_rng[1], x_rng[2], x_rng[2], x_rng[1]),
+                   y = c(therWindMin, therWindMin, therWindMax, therWindMax),
+                   type = "scatter",
+                   mode = "none",
+                   fill = "toself",
+                   fillcolor = "rgba(200,200,200,0.2)",
+                   showlegend = FALSE)
+  }
+  
+  p %>% layout(title = "API concentration in blood",
+               xaxis = list(title = "Time (h)", range = x_rng),
+               yaxis = list(title = "Concentration in blood (µg/mL)"))
+}
