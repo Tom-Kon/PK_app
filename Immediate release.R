@@ -6,15 +6,13 @@ ImmFunction <- function(input) {
   
   
   # Immediate = z-factor dissolution
-  # Immediate = z-factor dissolution
-  
   release_imm_list <- list()
+  
   if (length(starts_imm) > 0) {
     for (j in seq_along(starts_imm)) {
       r <- numeric(length(t))
       M0 <- imm_dose
       M  <- M0
-      
       start_idx <- which(t >= starts_imm[j])[1]
       
       if (length(start_idx) > 0 && !is.na(start_idx)) {
@@ -38,6 +36,7 @@ ImmFunction <- function(input) {
       release_imm_list[[j]] <- r
     }
   }
+  
   
   
   # ---- Calculate per-dose GI and Blood contributions for immediate ----
