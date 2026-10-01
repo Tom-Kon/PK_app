@@ -16,6 +16,7 @@ source("Immediate release.R")
 source("Sustained release.R")
 source("Additions and final steps.R")
 source("Plots.R")
+source("exportfunc.R")
 
 custom_theme <- bs_theme(
   version = 5,
@@ -25,48 +26,150 @@ custom_theme <- bs_theme(
 ui <- UIFunc(custom_theme)
 
 server <- function(input, output, session) {
+  
   simulate_model <- reactive({
     
-  req(input$simulateImmediate || input$simulateSustained)
-  GI_sus_list <- list()
-  B_sus_list <- list()
-  GI_imm_list <- list()
-  B_imm_list <- list()
-  susResults <- list()
-  immResults <- list()
-  
-  if(input$simulateSustained) {
-    susResults <- SustFunction(input)
-    GI_sus_list <- susResults$GI_sus_list
-    B_sus_list <- susResults$B_sus_list
-    t <- susResults$t
-    z <- susResults$z
-  }
-  
-  if(input$simulateImmediate){
-    immResults <- ImmFunction(input)
-    GI_imm_list <- immResults$GI_imm_list
-    B_imm_list <- immResults$B_imm_list
-    t <- immResults$t
-    z <- immResults$z
-  } 
-  
-  finalList <- finalSteps(B_imm_list, GI_imm_list, B_sus_list, GI_sus_list, t, z)
+    req(input$simulateImmediate || input$simulateSustained)
+    
+    GI_sus_list <- list()
+    B_sus_list <- list()
+    GI_imm_list <- list()
+    B_imm_list <- list()
+    susResults <- list()
+    immResults <- list()
+    
+    if (input$simulateSustained) {
+      susResults <- SustFunction(input)
+      GI_sus_list <- susResults$GI_sus_list
+      B_sus_list <- susResults$B_sus_list
+      t <- susResults$t
+      z <- susResults$z
+    }
+    
+    if (input$simulateImmediate) {
+      immResults <- ImmFunction(input)
+      GI_imm_list <- immResults$GI_imm_list
+      B_imm_list <- immResults$B_imm_list
+      t <- immResults$t
+      z <- immResults$z
+    }
+    
+    finalList <- finalSteps(
+      B_imm_list,
+      GI_imm_list,
+      B_sus_list,
+      GI_sus_list,
+      t,
+      z
+    )
   })
   
-  # --- GI plot ---
+  
+  # ============================================================
+  # INTERACTIVE PLOTS
+  # ============================================================
+  
   output$plotGI <- renderPlotly({
     req(input$showGI)
+    
     sim <- simulate_model()
+    
     GIPlotFunc(sim, input)
   })
   
-  # --- Blood plot ---
+  
   output$plotBlood <- renderPlotly({
     req(input$showBlood)
+    
     sim <- simulate_model()
+    
     BloodPlotFunc(sim, input)
   })
+  
+  
+  # ============================================================
+  # DOWNLOAD GI
+  # ============================================================
+  
+  output$downloadGI <- downloadHandler(
+    
+    filename = function() {
+      paste0(
+        Sys.Date(),
+        "_GI tract simulation.tiff"
+      )
+    },
+    
+    content = function(file) {
+      
+      sim <- simulate_model()
+      
+      p <- GIExportFunc(sim, input)
+      
+      ggsave(
+        filename = file,
+        plot = p,
+        device = "tiff",
+        dpi = 600,
+        width = 30,
+        height = 20,
+        units = "cm",
+        compression = "lzw"
+      )
+    }
+  )
+  
+  
+  # ============================================================
+  # DOWNLOAD BLOOD
+  # ============================================================
+  
+  output$downloadBlood <- downloadHandler(
+    
+    filename = function() {
+      paste0(
+        Sys.Date(),
+        "_plasma simulation.tiff"
+      )
+    },
+    
+    content = function(file) {
+      
+      sim <- simulate_model()
+      
+      p <- BloodExportFunc(sim, input)
+      
+      ggsave(
+        filename = file,
+        plot = p,
+        device = "tiff",
+        dpi = 600,
+        width = 30,
+        height = 20,
+        units = "cm",
+        compression = "lzw"
+      )
+    }
+  )
+  
+  # DOWNLOAD EXCEL
+  output$downloadExcel <- downloadHandler(
+    filename = function() {
+      paste0(Sys.Date(), "_drug release simulation.xlsx")
+    },
+    content = function(file) {
+      
+      sim <- simulate_model()
+      
+      wb <- download_Excel(sim, input)
+      
+      openxlsx::saveWorkbook(
+        wb,
+        file = file,
+        overwrite = TRUE
+      )
+    }
+  )
+    
 }
-
 shinyApp(ui = ui, server = server)

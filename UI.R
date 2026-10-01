@@ -78,6 +78,12 @@ UIFunc <- function(theme) {
                      checkboxInput("showTherWind", "Show therapeutic window", FALSE),
                      # checkboxInput("separateColors", "Show separate curves for each immediate release dose instead of sum", FALSE),
                      # helpText("When enabled, each dose is plotted with its own color; consistent across GI & Blood.")
+            ), 
+            tabPanel("Downloads",
+                     downloadButton("downloadGI", "Download the GI tract concentration plot"),
+                     downloadButton("downloadBlood", "Download the plasma concentration plot"),
+                     downloadButton("downloadExcel", "Download the Excel will the full analysis")
+
             )
           )
         ),

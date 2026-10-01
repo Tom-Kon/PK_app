@@ -8,3 +8,4 @@
 library(shiny)
 library(plotly)
 library(bslib)
+library(magick)
