@@ -6,30 +6,39 @@ ImmFunction <- function(input) {
   
   
   # Immediate = z-factor dissolution
+  # Immediate = z-factor dissolution
+  
   release_imm_list <- list()
   if (length(starts_imm) > 0) {
     for (j in seq_along(starts_imm)) {
       r <- numeric(length(t))
       M0 <- imm_dose
       M  <- M0
+      
       start_idx <- which(t >= starts_imm[j])[1]
-      if (!is.na(start_idx)) {
-        for (i in seq(start_idx + 1, length(t))) {
-          dti <- t[i] - t[i-1]
-          M23 <- if (M > 0) M^(2/3) else 0
-          dMdt <- - z*M23*(Cs-M/V)
-          dM <- dMdt * dti
-          newM <- M + dM
-          if (newM < 0) newM <- 0
-          released <- max(M - newM, 0)
+      
+      if (length(start_idx) > 0 && !is.na(start_idx)) {
+        for (i in seq.int(start_idx + 1, length(t))) {
+          dti <- t[i] - t[i - 1]
+          
+          if (M <= 0 || dti <= 0) break
+          
+          # Dissolution rate, constrained to prevent precipitation
+          driving_force <- max(Cs - M / V, 0)
+          dMdt <- z * M^(2/3) * driving_force
+          
+          # Limit the amount dissolved to the remaining solid mass
+          released <- min(M, dMdt * dti)
+          
           r[i] <- released
-          M <- newM
-          if (M <= 0) break
+          M <- M - released
         }
       }
+      
       release_imm_list[[j]] <- r
     }
   }
+  
   
   # ---- Calculate per-dose GI and Blood contributions for immediate ----
   GI_imm_list <- list(); B_imm_list <- list()
