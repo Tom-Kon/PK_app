@@ -78,7 +78,6 @@ finalSteps <- function(B_imm_list, GI_imm_list, B_sus_list, GI_sus_list, t, z) {
     GI_sus_total = GI_sus_total_df,
     B_imm_total = B_imm_total_df,
     B_sus_total = B_sus_total_df,
-    z = z,
     last_timeGI = max(t_trimGI),
     last_timeBlood = max(t_trimBlood)
   )

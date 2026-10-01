@@ -28,6 +28,8 @@ ui <- UIFunc(custom_theme)
 server <- function(input, output, session) {
   
   simulate_model <- reactive({
+    req(input$D_Imm)
+    req(input$sust_dose)
     
     req(input$simulateImmediate || input$simulateSustained)
     
@@ -43,7 +45,6 @@ server <- function(input, output, session) {
       GI_sus_list <- susResults$GI_sus_list
       B_sus_list <- susResults$B_sus_list
       t <- susResults$t
-      z <- susResults$z
     }
     
     if (input$simulateImmediate) {
@@ -51,7 +52,6 @@ server <- function(input, output, session) {
       GI_imm_list <- immResults$GI_imm_list
       B_imm_list <- immResults$B_imm_list
       t <- immResults$t
-      z <- immResults$z
     }
     
     finalList <- finalSteps(
@@ -59,8 +59,7 @@ server <- function(input, output, session) {
       GI_imm_list,
       B_sus_list,
       GI_sus_list,
-      t,
-      z
+      t
     )
   })
   

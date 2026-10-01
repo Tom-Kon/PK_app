@@ -46,9 +46,6 @@ generalParams <- function(input){
   rho <- input$rho #No need for conversion because g/mL = kg/L
   r0  <- input$r0/100
   
-  # z-factor calculation
-  z <- 4 * pi*D/h*(3/(4*rho*pi))^(2/3)
-  
   #k for sustained release calculation
   kS_input <- DiffSust*partK*area/thickness/V
     
@@ -70,7 +67,7 @@ generalParams <- function(input){
   generalList <- list(Vd = Vd, k_gi = k_gi, ke = ke, F = F, t_transit = t_transit, sim_sus = sim_sus, sus_delay = sus_delay, sus_num = sus_num, 
                       sus_interval = sus_interval, kS_input = kS_input, DS_input = DS_input, sim_imm = sim_imm, imm_delay = imm_delay, 
                       imm_dose = imm_dose, imm_num = imm_num, imm_interval = imm_interval, D = D, h = h, rho = rho, r0 = r0, 
-                      Cs = Cs, V = V, z = z, starts_sus = starts_sus, starts_imm = starts_imm, last_start = last_start, tail_guess = tail_guess, 
+                      Cs = Cs, V = V, starts_sus = starts_sus, starts_imm = starts_imm, last_start = last_start, tail_guess = tail_guess, 
                       t_end_guess = t_end_guess, N = N, t = t, dt = dt)
 
   return(generalList)

@@ -55,7 +55,7 @@ SustFunction <- function(input) {
     }
   }
   
- susResults <- list(GI_sus_list = GI_sus_list, B_sus_list = B_sus_list, t = t, z=z)
+ susResults <- list(GI_sus_list = GI_sus_list, B_sus_list = B_sus_list, t = t)
  return(susResults)
 
 }

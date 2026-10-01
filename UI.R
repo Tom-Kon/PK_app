@@ -44,10 +44,10 @@ UIFunc <- function(theme) {
                        sliderInput("h",   "Diffusion layer thickness h (µm)",  min = 1, max = 1000,   value = 100, step = 10),
                        sliderInput("rho", "Particle density rho (g/mL)",         min = 0.1,  max = 5,   value = 2.65,    step = 0.05),
                        sliderInput("r0",  "Initial particle radius r0 (cm)",   min = 1e-3, max = 1,   value = 0.05, step = 1e-3),
-                       sliderInput("D_Imm",   "Diffusion coefficient of the API through the diffusion layer (cm/s)", min = 0.01, max = 10,  value = 1,    step = 0.01),
+                       sliderInput("D_Imm",   "Diffusion coefficient of the API through the diffusion layer (cm/s)", min = 0.00000001, max = 0.00001,  value = 0.0000001,    step = 0.000001),
                        sliderInput("imm_delay", "Immediate: delayed first dose (h)", min = 0, max = 24, value = 0, step = 0.1),
                        sliderInput("imm_dose", "Immediate: dose amount (mg)", min = 0.01, max = 500, value = 100),
-                       sliderInput("imm_num", "Immediate: number of doses", min = 1, max = 20, value = 3, step = 1),
+                       sliderInput("imm_num", "Immediate: number of doses", min = 1, max = 20, value = 1, step = 1),
                        sliderInput("imm_interval", "Immediate: interval (h)", min = 0.1, max = 24, value = 2.5, step = 0.1)
                      )
             ),
