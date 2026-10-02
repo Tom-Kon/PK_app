@@ -25,7 +25,7 @@ finalSteps <- function(B_imm_list, GI_imm_list, B_sus_list, GI_sus_list, t, z) {
   
   # dynamic trimming
   
-  thrGI <- 0.01*max(max(GI_total_vec), max(Blood_total_vec))
+  thrGI <- 0.0001*max(max(GI_total_vec))
   act_idxGI <- which(GI_total_vec > thrGI)
   if (length(act_idxGI) == 0) {
     keep_idxGI <- seq_len(min(50, length(t)))
@@ -38,7 +38,7 @@ finalSteps <- function(B_imm_list, GI_imm_list, B_sus_list, GI_sus_list, t, z) {
   }
   
   
-  thrBlood <- 0.01*max(Blood_total_vec)
+  thrBlood <- 0.0001*max(Blood_total_vec)
   act_idxBlood <- which(Blood_total_vec > thrBlood)
   if (length(act_idxBlood) == 0) {
     keep_idxBlood <- seq_len(min(50, length(t)))

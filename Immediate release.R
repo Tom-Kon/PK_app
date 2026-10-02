@@ -40,8 +40,7 @@ ImmFunction <- function(input) {
           C_GI <- max(M_GI, 0) / V
           
           driving_force <- max(Cs - C_GI, 0)
-          
-          
+        
           
           if (M_solid <= 1e-20 | !is.finite(M_solid)) {
             dissolution_rate <- 0
@@ -86,10 +85,26 @@ ImmFunction <- function(input) {
         times = t_after,
         func = model,
         parms = parms,
-        method = "lsoda"
+        method = "lsoda",
+        rtol = 1e-6,
+        atol = c(
+          M_solid = 1e-12,
+          M_GI = 1e-12,
+          C_B = 1e-12
+        )
       )
       
       out <- as.data.frame(out)
+      
+      if (nrow(out) != length(t_after) ||
+          tail(out$time, 1) < tail(t_after, 1)) {
+        stop(
+          sprintf(
+            "ODE solver stopped early for dose %d: reached t = %g, requested t = %g",
+            j, tail(out$time, 1), tail(t_after, 1)
+          )
+        )
+      }
       
       # Full-length vectors
       M_solid <- numeric(length(t))
