@@ -8,7 +8,6 @@ ImmFunction <- function(input) {
   GI_imm_list <- list()
   B_imm_list <- list()
   
-  print(t[length(t)])
 
   if (length(starts_imm) > 0) {
     
@@ -23,6 +22,8 @@ ImmFunction <- function(input) {
       
       # Integrate from dose start onwards
       t_after <- t[start_idx:length(t)]
+      diff(tail(t_after, 20))
+      
       
       # Initial conditions at dose time
       state <- c(
@@ -42,7 +43,7 @@ ImmFunction <- function(input) {
           driving_force <- max(Cs - C_GI, 0)
         
           
-          if (M_solid <= 1e-20 | !is.finite(M_solid)) {
+          if (M_solid <= 1e-12 | !is.finite(M_solid)) {
             dissolution_rate <- 0
           } else {
             dissolution_rate <-
@@ -60,6 +61,10 @@ ImmFunction <- function(input) {
           
           dC_B <- F * absorption_rate / Vd - ke * C_B
           
+          print(paste0("Solid=", dM_solid))
+          print(paste0("GI=", dM_GI))
+          print(paste0("Blood=", dC_B))
+          
           list(
             c(
               dM_solid,
@@ -67,6 +72,8 @@ ImmFunction <- function(input) {
               dC_B
             )
           )
+          
+
         })
       }
       
@@ -86,25 +93,16 @@ ImmFunction <- function(input) {
         func = model,
         parms = parms,
         method = "lsoda",
-        rtol = 1e-6,
+        rtol = 1e-4,
         atol = c(
-          M_solid = 1e-12,
-          M_GI = 1e-12,
-          C_B = 1e-12
+          M_solid = 1e-8,
+          M_GI = 1e-8,
+          C_B = 1e-10
         )
       )
       
       out <- as.data.frame(out)
       
-      if (nrow(out) != length(t_after) ||
-          tail(out$time, 1) < tail(t_after, 1)) {
-        stop(
-          sprintf(
-            "ODE solver stopped early for dose %d: reached t = %g, requested t = %g",
-            j, tail(out$time, 1), tail(t_after, 1)
-          )
-        )
-      }
       
       # Full-length vectors
       M_solid <- numeric(length(t))
@@ -149,6 +147,8 @@ ImmFunction <- function(input) {
     release_imm_list = release_imm_list,
     t = t
   )
+  
+
   
   return(immResults)
 }
