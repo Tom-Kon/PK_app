@@ -31,12 +31,31 @@ ImmFunction <- function(input) {
         M_GI    = 0,
         C_B     = 0
       )
-      print(state[1])
-      
+
       # Coupled dissolution / GI / blood model
       model <- function(time, state, parms) {
         
         with(as.list(c(state, parms)), {
+          M_solid <- max(M_solid, 0)
+          M_GI    <- max(M_GI, 0)
+          C_B     <- max(C_B, 0)
+          
+          if (M_solid < 1e-20) M_solid <- 0
+          if (M_GI    < 1e-20) M_GI    <- 0
+          if (C_B     < 1e-20) C_B    <- 0
+          
+          if (
+            M_solid < 1e-20 &&
+            M_GI    < 1e-20 &&
+            C_B     < 1e-22
+          ) {
+            
+            return(list(c(
+              0,
+              0,
+              0
+            )))
+          }
           
           C_GI <- max(M_GI, 0) / V
           
@@ -60,10 +79,7 @@ ImmFunction <- function(input) {
           dM_GI <- dissolution_rate - absorption_rate
           
           dC_B <- F * absorption_rate / Vd - ke * C_B
-          
-          print(paste0("Solid=", dM_solid))
-          print(paste0("GI=", dM_GI))
-          print(paste0("Blood=", dC_B))
+        
           
           list(
             c(

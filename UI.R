@@ -82,7 +82,7 @@ UIFunc <- function(theme) {
             tabPanel("Downloads",
                      downloadButton("downloadGI", "Download the GI tract concentration plot"),
                      downloadButton("downloadBlood", "Download the plasma concentration plot"),
-                     downloadButton("downloadExcel", "Download the Excel will the full analysis")
+                     downloadButton("downloadExcel", "Download the Excel with the full analysis")
 
             )
           )
