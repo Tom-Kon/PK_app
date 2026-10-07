@@ -286,7 +286,6 @@ BloodExportFunc <- function(
 }
 
 
-library(openxlsx)
 
 download_Excel <- function(sim, input) {
   
