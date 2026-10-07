@@ -87,7 +87,7 @@ $$
 which is simply equation 1.7 divided by $V_{GI}$ and with the added term $\frac{P_{eff}A}{V_{GI}}(C_{GI})$ representing absorption through the intestinal lumen. The second differential equation is:
 
 $$
-\frac{dC_{plasma}}{dt} = \frac{P_{eff}A}{V_d} C_{GI}-\frac{Cl}{Vd}C_{plasma} \quad (1.10)
+\frac{dC_{plasma}}{dt} = \frac{P_{eff}A}{V_d} C_{GI}-\frac{Cl}{V_d}C_{plasma} \quad (1.10)
 $$
 
 The numerical evaluation is done within R and is not explained further here. Note that the approach used here implicitly handles the emptying of the IR formulation. Indeed, if \$M = M_0\$ in equation 1.9, the change in GI concentration in time is just controlled by diffusion into the bloodstream. Note that this approach is different from the one used for the sustained release model below because the equations are very different. Gastric emptying, on the other hand, is not taken into account here because we assume that the drug is relatively water soluble and thus dissolves and diffuses entirely before the formulation is removed with the feces. This is not necessarily the case for an SR formulation if the coating is not permeable enough, which is described below.
@@ -173,7 +173,7 @@ The time required to empty the dosage form can then be obtained by setting $M(t)
 Finally, the plasma concentration is obtained by the equation:
 
 $$
-\frac{dC_{plasma}}{dt} = \frac{P_{eff}A}{V_d} C_{GI}-\frac{Cl}{Vd}C_{plasma} \quad (2.10)
+\frac{dC_{plasma}}{dt} = \frac{P_{eff}A}{V_d} C_{GI}-\frac{Cl}{V_d}C_{plasma} \quad (2.10)
 $$
 
 where Cl is the clearance. Again, the assumption is made here that the plasma concentration is much smaller than the concentration in the GI tract. If $C_{GI}$ in equation 10 is replaced by the expression from equation 7, the differential equation can again be solved using separation of variables and u-substitution. The resulting final equation is:
