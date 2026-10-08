@@ -67,7 +67,7 @@ generalParams <- function(input){
 
   sim_imm <- isTRUE(input$simulateImmediate)
   imm_delay <- input$imm_delay*3600
-  imm_dose  <- input$imm_dose/1000000      
+  imm_dose  <- input$imm_dose/1000000
   imm_num   <- input$imm_num
   imm_interval <- input$imm_interval*3600
   

@@ -16,8 +16,8 @@ ImmFunction <- function(input) {
     # LOADING DOSE
     # ============================================================
     
-    if (isTRUE(input$use_loading_dose)) {
-      loading_dose <- imm_dose * input$loading_factor
+    if (input$use_loading_dose == TRUE & input$imm_num != 1) {
+      loading_dose <- input$loading_dose/1000000
     } else {
       loading_dose <- imm_dose
     }

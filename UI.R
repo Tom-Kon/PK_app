@@ -73,6 +73,17 @@ UIFunc <- function(theme) {
                                   choices = c("Half-life" = "t0.5Fix", 
                                               "Volume of distribution" = "VdFix",
                                               "Clearance" = "ClFix")),
+                     checkboxInput("use_loading_dose", "Use a loading dose"),
+                     conditionalPanel(
+                       condition = "input.use_loading_dose == true && input.imm_num != 1",
+                       sliderInput(
+                         "loading_dose",
+                         "Use a loading dose (mg)",
+                         min = 0.01,
+                         max = 2000,
+                         value = 500
+                       )
+                     ),
                      radioButtons("GIview", "GI View",
                                   choices = c("Immediate only" = "immediate",
                                               "Sustained only" = "sustained",

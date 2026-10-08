@@ -26,7 +26,14 @@ custom_theme <- bs_theme(
 ui <- UIFunc(custom_theme)
 
 server <- function(input, output, session) {
-  observe({
+  observeEvent(
+    list(
+      input$ClVdt0.5Fix,
+      input$Vd,
+      input$Cl,
+      input$t0.5,
+      input$weight
+    ), {
     fixed <- input$ClVdt0.5Fix
     generalList <- generalParams(input)
     list2env(generalList, envir = environment())
