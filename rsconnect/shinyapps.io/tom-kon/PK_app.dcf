@@ -1,0 +1,12 @@
+name: PK_app
+title: PK_app
+username: tom-kon
+account: tom-kon
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 18115354
+bundleId: 12658915
+url: https://tom-kon.shinyapps.io/PK_app/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
