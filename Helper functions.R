@@ -7,13 +7,44 @@ palette_hcl <- function(n, h = c(15, 375), c = 100, l = 60) {
 # IMPORTANT NOTE: EVERYTHING IS CONVERTED TO SECONDS, LITER, KILOGRAM, AND M.  
 
 generalParams <- function(input){
+  fixed <- input$ClVdt0.5Fix
+  
   # Read parameters
   P_eff <- input$P_eff 
   A_GI <- input$A_GI/10000
-  Vd   <- input$Vd*input$weight
   weight <- input$weight
-  Cl   <- input$Cl/60*weight/1000
   Cs  <- input$Cs/1000
+  
+  if (fixed == "t0.5Fix") {
+    
+    Vd <- input$Vd * input$weight
+    Cl <- input$Cl / 60 * input$weight / 1000
+    t0.5 <- log(2) * Vd / Cl
+    
+    Vd_UI <- Vd / input$weight
+    Cl_UI <- Cl * 1000 * 60 / input$weight
+    t0.5_UI <- t0.5 / 3600
+    
+  } else if (fixed == "VdFix") {
+    
+    Cl <- input$Cl / 60 * input$weight / 1000
+    t0.5 <- input$t0.5 * 3600
+    Vd <- t0.5 * Cl / log(2)
+    
+    Vd_UI <- Vd / input$weight
+    Cl_UI <- Cl * 1000 * 60 / input$weight
+    t0.5_UI <- t0.5 / 3600
+    
+  } else {
+    
+    t0.5 <- input$t0.5 * 3600
+    Vd <- input$Vd * input$weight
+    Cl <- log(2) * Vd / t0.5
+    
+    Vd_UI <- Vd / input$weight
+    Cl_UI <- Cl * 1000 * 60 / input$weight
+    t0.5_UI <- t0.5 / 3600
+  }
   
   ke   <- Cl/Vd
   F    <- input$F
@@ -64,7 +95,7 @@ generalParams <- function(input){
   dt <- c(diff(t)[1], diff(t))
   
   
-  generalList <- list(Vd = Vd, k_gi = k_gi, ke = ke, F = F, t_transit = t_transit, sim_sus = sim_sus, sus_delay = sus_delay, sus_num = sus_num, 
+  generalList <- list(Vd = Vd, Vd_UI = Vd_UI, Cl_UI = Cl_UI, t0.5_UI = t0.5_UI, k_gi = k_gi, ke = ke, F = F, t_transit = t_transit, sim_sus = sim_sus, sus_delay = sus_delay, sus_num = sus_num, 
                       sus_interval = sus_interval, kS_input = kS_input, DS_input = DS_input, sim_imm = sim_imm, imm_delay = imm_delay, 
                       imm_dose = imm_dose, imm_num = imm_num, imm_interval = imm_interval, D = D, h = h, rho = rho, r0 = r0, 
                       Cs = Cs, V = V, starts_sus = starts_sus, starts_imm = starts_imm, last_start = last_start, tail_guess = tail_guess, 

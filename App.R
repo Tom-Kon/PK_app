@@ -26,8 +26,67 @@ custom_theme <- bs_theme(
 ui <- UIFunc(custom_theme)
 
 server <- function(input, output, session) {
+  observe({
+    fixed <- input$ClVdt0.5Fix
+    generalList <- generalParams(input)
+    list2env(generalList, envir = environment())
+
+    if (fixed == "t0.5Fix") {
+      shinyjs::disable("t0.5")
+      shinyjs::enable("Vd")
+      shinyjs::enable("Cl")
+      
+    } else if (fixed == "VdFix") {
+      shinyjs::disable("Vd")
+      shinyjs::enable("t0.5")
+      shinyjs::enable("Cl")
+      
+    } else if (fixed == "ClFix") {
+      shinyjs::disable("Cl")
+      shinyjs::enable("t0.5")
+      shinyjs::enable("Vd")
+    }
+    
+    if (fixed == "t0.5Fix") {
+      
+      updateSliderInput(
+        session,
+        "t0.5",
+        min = min(0.2, t0.5_UI),
+        max = max(40, t0.5_UI),
+        value = t0.5_UI
+      )
+
+    } else if (fixed == "VdFix") {
+      
+      updateSliderInput(
+        session,
+        "Vd",
+        min = min(0.01, Vd_UI),
+        max = max(3, Vd_UI),
+        value = Vd_UI
+      )
+      
+    } else {
+      
+      updateSliderInput(
+        session,
+        "Cl",
+        min = min(0.5, Cl_UI),
+        max = max(20, Cl_UI),
+        value = Cl_UI
+      )
+
+    }
+    
+  })
+  
+
+  
   
   simulate_model <- reactive({
+    
+    
     req(input$D_Imm)
     req(input$sust_dose)
     
@@ -59,8 +118,10 @@ server <- function(input, output, session) {
       GI_imm_list,
       B_sus_list,
       GI_sus_list,
-      t
+      t, 
+      input
     )
+    
   })
   
   

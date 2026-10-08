@@ -1,4 +1,4 @@
-finalSteps <- function(B_imm_list, GI_imm_list, B_sus_list, GI_sus_list, t, z) {
+finalSteps <- function(B_imm_list, GI_imm_list, B_sus_list, GI_sus_list, t, input) {
   # totals (sum of all per-dose contributions)
   GI_total_vec <- numeric(length(t))
   # combine lists safely: elements of lists are data.frames with $y
@@ -65,6 +65,51 @@ finalSteps <- function(B_imm_list, GI_imm_list, B_sus_list, GI_sus_list, t, z) {
   GI_sus_total_df <- data.frame(x = t_trimGI, y = GI_sus_total[keep_idxGI], group = "Sustained total")
   B_imm_total_df  <- data.frame(x = t_trimBlood, y = B_imm_total[keep_idxBlood], group = "Immediate total")
   B_sus_total_df  <- data.frame(x = t_trimBlood, y = B_sus_total[keep_idxBlood], group = "Sustained total")
+  
+  if(input$imm_num == 1) {
+    CmaxImmIndex <- which.max(B_imm_total_df$y)
+    CmaxImm <- B_imm_total_df$y[CmaxImmIndex]
+    tmaxImm <- B_imm_total_df$x[CmaxImmIndex]
+  } else if(input$imm_num*input$imm_interval > 5*input$t0.5) {
+    idxStart <- which.min(abs(B_imm_total_df$x-5*input$t0.5))
+    idxEnd <- which.min(abs(B_imm_total_df$x-5*input$t0.5-input$imm_interval))
+    tReached <- 5*input$t0.5
+    CmaxImmEq <- max(B_imm_total_df$y[idxStart: idxEnd])
+    CminImmEq <- min(B_imm_total_df$y[idxStart: idxEnd])
+    CAvImmEq <- (CmaxImmEq+CminImmEq)/2
+  }
+  
+  
+  y <- B_sus_total_df$y
+  t <- B_sus_total_df$x
+  
+  CmaxSusIndex <- which.max(y)
+  CmaxSus <- y[CmaxSusIndex]
+  tmaxSus <- t[CmaxSusIndex]
+  
+  plateau <- y >= 0.99 * CmaxSus &(tmaxSus - t) >= input$t0.5
+  
+  if (any(plateau)) {
+    
+    idxPlat <- which(plateau)[1]
+    
+    tPlat <- B_sus_total_df$x[idxPlat]
+    cPlat <- B_sus_total_df$y[idxPlat]
+    
+    print("1")
+    print(tPlat)
+    print(cPlat)
+    
+  } else {
+    
+    CmaxSusIndex <- which.max(y)
+    CmaxSus <- y[CmaxSusIndex]
+    tmaxSus <- B_sus_total_df$x[CmaxSusIndex]
+    
+    print("2")
+    print(CmaxSus)
+    print(tmaxSus)
+  }
   
   
   finalList <- list(
