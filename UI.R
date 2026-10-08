@@ -70,7 +70,7 @@ UIFunc <- function(theme) {
             
             tabPanel("Other switches",
                      radioButtons("ClVdt0.5Fix", "Check which parameter should be fixed", 
-                                  choices = c("Half-time" = "t0.5Fix", 
+                                  choices = c("Half-life" = "t0.5Fix", 
                                               "Volume of distribution" = "VdFix",
                                               "Clearance" = "ClFix")),
                      radioButtons("GIview", "GI View",
@@ -96,7 +96,57 @@ UIFunc <- function(theme) {
           width = 9,
           plotlyOutput("plotGI", height = "360px"),
           HTML("<br>", "<br>", "<br>"),
-          plotlyOutput("plotBlood", height = "360px")
+          plotlyOutput("plotBlood", height = "360px"),
+          div(
+            style = "margin-top: 25px;",
+            
+            h3(
+              "Pharmacokinetic Parameters",
+              style = "font-weight: 600; margin-bottom: 20px;"
+            ),
+            
+            div(
+              style = paste(
+                "background-color: #f8f9fa;",
+                "border-left: 5px solid #198754;",
+                "border-radius: 6px;",
+                "padding: 15px 20px;",
+                "margin-bottom: 20px;",
+                "box-shadow: 0 1px 3px rgba(0,0,0,0.08);"
+              ),
+              
+              h4(
+                "Immediate Release",
+                style = "margin-top: 0; font-weight: 600; font-size: 20px;"
+              ),
+              
+              div(
+                style = "font-size: 17px; line-height: 1.7;",
+                textOutput("ImmParameters")
+              )
+            ),
+            
+            div(
+              style = paste(
+                "background-color: #f8f9fa;",
+                "border-left: 5px solid #0d6efd;",
+                "border-radius: 6px;",
+                "padding: 15px 20px;",
+                "margin-bottom: 15px;",
+                "box-shadow: 0 1px 3px rgba(0,0,0,0.08);"
+              ),
+              
+              h4(
+                "Sustained Release",
+                style = "margin-top: 0; font-weight: 600; font-size: 20px;"
+              ),
+              
+              div(
+                style = "font-size: 17px; line-height: 1.7;",
+                textOutput("SusParameters")
+              )
+            )
+          )
         )
       )
     ),

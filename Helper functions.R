@@ -104,3 +104,73 @@ generalParams <- function(input){
   return(generalList)
   
 }
+
+outputGenerator <- function(input, finalList) {
+  generalList <- generalParams(input)
+  list2env(generalList, envir = environment())
+  list2env(finalList, envir = environment())
+  textResult <- list()
+
+  if(input$simulateSustained) {
+
+    if(any(plateau)) {
+      textSus <- paste0(
+        "The total AUC of the sustained release formulation was found to be ", signif(AUCTotalSus, 3), " µg*h/mL. A plateau was detected at  "
+        , signif(cPlat, 3), " µg/mL, which was reached at ", signif(tPlat, 3), " h."
+      )
+    } else {
+      textSus <- paste0(
+        "The total AUC of the sustained release formulation was found to be ", signif(AUCTotalSus, 3), " µg*h/mL. The maximum concentration 
+      for the sustained release formulation was ", signif(CmaxSus, 3), " µg/mL, which was reached at ", signif(tmaxSus, 3), " h."
+      )
+    }
+    
+    textResult$textSus <- textSus
+  }
+  
+  
+  if(input$simulateImmediate) {
+  
+    if(input$imm_num == 1) {
+    textImm <- paste0(
+      "The total AUC of the immediate release formulation was found to be ", signif(AUCtotalImm, 3), " µg*h/mL. A single dosage form was administered,
+      resulting in a maximum concentration of ", signif(CmaxImm, 3), " µg/mL at ", signif(tmaxImm, 3), " h."
+    )
+      
+    } else if (input$imm_num != 1 & input$imm_num*input$imm_interval > 6*input$t0.5) {
+      textImm <- paste0(
+        "The total AUC of the immediate release formulation was found to be ", signif(AUCtotalImm, 3), " µg*h/mL. Multiple dosage forms were administered,
+      resulting in an equilibrium that was reached at ", signif(tReached, 3), " h. The maxima of this equilibrium lie at ", signif(CmaxImmEq, 3), " µg/mL, 
+      while the the minima lie at ", signif(CminImmEq, 3), " µg/mL and the average lies at ", signif(CAvImmEq, 3), " µg/mL. 
+      The AUC of each dosage form when equilibrium is reached is ", signif(AUCDoseImm, 3), " µg*h/mL."
+      )
+      
+    } else {
+      textImm <- paste0(
+        "The total AUC of the immediate release formulation was found to be ", signif(AUCtotalImm, 3), " µg*h/mL. Multiple dosage forms were administered, but no equilibrium was reached. You can reach
+        equilibrium by decreasing half life, by decreasing dosage interval, or by increasing the number of administered dosage forms. The result is a 
+        maximum concentration of ", signif(CmaxImm, 3), " µg/mL at ", signif(tmaxImm, 3), " h, but these parameters are rather meaningless due to multiple administrations without equilibrium."
+      )
+    }
+    
+    textResult$textImm <- textImm
+  }
+  
+  return(textResult)
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

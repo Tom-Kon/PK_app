@@ -126,6 +126,31 @@ server <- function(input, output, session) {
   
   
   # ============================================================
+  # Output Parameters
+  # ============================================================
+  observe({
+    req(simulate_model())
+    sim <- simulate_model()
+    
+    finalList <- sim$ParamList
+    
+    outputList <- outputGenerator(input, finalList)
+
+    if (input$simulateSustained) {
+      output$SusParameters <- renderText({
+        outputList$textSus
+      })
+    }
+    
+    if (input$simulateImmediate) {
+      output$ImmParameters <- renderText({
+        outputList$textImm
+      })
+    }
+  })
+  
+  
+  # ============================================================
   # INTERACTIVE PLOTS
   # ============================================================
   

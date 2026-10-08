@@ -66,19 +66,51 @@ finalSteps <- function(B_imm_list, GI_imm_list, B_sus_list, GI_sus_list, t, inpu
   B_imm_total_df  <- data.frame(x = t_trimBlood, y = B_imm_total[keep_idxBlood], group = "Immediate total")
   B_sus_total_df  <- data.frame(x = t_trimBlood, y = B_sus_total[keep_idxBlood], group = "Sustained total")
   
+  AUCtotalImm <- pracma::trapz(
+    B_imm_total_df$x,
+    B_imm_total_df$y
+  )
+  
+  AUCTotalSus <- pracma::trapz(
+    B_sus_total_df$x,
+    B_sus_total_df$y
+  )
+  
+  #Initialize all variables to avoid errors
+  CmaxImm <- numeric(0)
+  tmaxImm <- numeric(0)
+  tReached <- numeric(0)
+  CmaxImmEq <- numeric(0)
+  CminImmEq <- numeric(0)
+  CAvImmEq <- numeric(0)
+  AUCDoseImm <- numeric(0)
+  AUCImmEq <- numeric(0)
+  tPlat <- numeric(0)
+  cPlat <- numeric(0)
+  CmaxSus <- numeric(0)
+  tmaxSus <- numeric(0)
+  
+  
   if(input$imm_num == 1) {
     CmaxImmIndex <- which.max(B_imm_total_df$y)
     CmaxImm <- B_imm_total_df$y[CmaxImmIndex]
     tmaxImm <- B_imm_total_df$x[CmaxImmIndex]
-  } else if(input$imm_num*input$imm_interval > 5*input$t0.5) {
-    idxStart <- which.min(abs(B_imm_total_df$x-5*input$t0.5))
-    idxEnd <- which.min(abs(B_imm_total_df$x-5*input$t0.5-input$imm_interval))
-    tReached <- 5*input$t0.5
+  } else if(input$imm_num != 1 & input$imm_num*input$imm_interval > 6*input$t0.5) {
+    idxStart <- which.min(abs(B_imm_total_df$x-6*input$t0.5))
+    idxEnd <- which.min(abs(B_imm_total_df$x-6*input$t0.5-input$imm_interval))
+    tReached <- 6*input$t0.5
     CmaxImmEq <- max(B_imm_total_df$y[idxStart: idxEnd])
     CminImmEq <- min(B_imm_total_df$y[idxStart: idxEnd])
-    CAvImmEq <- (CmaxImmEq+CminImmEq)/2
+    AUCDoseImm <- pracma::trapz(
+      B_imm_total_df$x[idxStart:idxEnd],
+      B_imm_total_df$y[idxStart:idxEnd]
+    )
+    CAvImmEq <- AUCDoseImm / input$imm_interval
+  } else if (input$imm_num != 1 & input$imm_num*input$imm_interval < 6*input$t0.5) {
+    CmaxImmIndex <- which.max(B_imm_total_df$y)
+    CmaxImm <- B_imm_total_df$y[CmaxImmIndex]
+    tmaxImm <- B_imm_total_df$x[CmaxImmIndex]    
   }
-  
   
   y <- B_sus_total_df$y
   t <- B_sus_total_df$x
@@ -102,6 +134,23 @@ finalSteps <- function(B_imm_list, GI_imm_list, B_sus_list, GI_sus_list, t, inpu
     tmaxSus <- B_sus_total_df$x[CmaxSusIndex]
   }
   
+  ParamList <- list(
+    AUCtotalImm = AUCtotalImm,
+    AUCTotalSus = AUCTotalSus,
+    CmaxImm = CmaxImm,
+    tmaxImm = tmaxImm,
+    tReached = tReached,
+    AUCDoseImm = AUCDoseImm,
+    CmaxImmEq = CmaxImmEq,
+    CminImmEq = CminImmEq,
+    CAvImmEq = CAvImmEq,
+    plateau = plateau,
+    tPlat = tPlat,
+    cPlat = cPlat,
+    CmaxSus = CmaxSus,
+    tmaxSus = tmaxSus
+  )
+  
   
   finalList <- list(
     GI_total = GI_total_df,
@@ -115,7 +164,8 @@ finalSteps <- function(B_imm_list, GI_imm_list, B_sus_list, GI_sus_list, t, inpu
     B_imm_total = B_imm_total_df,
     B_sus_total = B_sus_total_df,
     last_timeGI = max(t_trimGI),
-    last_timeBlood = max(t_trimBlood)
+    last_timeBlood = max(t_trimBlood),
+    ParamList = ParamList
   )
   
   return(finalList)
