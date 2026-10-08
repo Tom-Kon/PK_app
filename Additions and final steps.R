@@ -95,20 +95,11 @@ finalSteps <- function(B_imm_list, GI_imm_list, B_sus_list, GI_sus_list, t, inpu
     
     tPlat <- B_sus_total_df$x[idxPlat]
     cPlat <- B_sus_total_df$y[idxPlat]
-    
-    print("1")
-    print(tPlat)
-    print(cPlat)
-    
   } else {
     
     CmaxSusIndex <- which.max(y)
     CmaxSus <- y[CmaxSusIndex]
     tmaxSus <- B_sus_total_df$x[CmaxSusIndex]
-    
-    print("2")
-    print(CmaxSus)
-    print(tmaxSus)
   }
   
   
