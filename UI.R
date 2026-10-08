@@ -26,9 +26,14 @@ UIFunc <- function(theme) {
                      sliderInput("Cs",  "API solubility in GI tract (mg/mL)", min = 0.000001, max = 500, value = 300, step = 0.01),
                      sliderInput("V_GI",  "Solvent volume in the GI tract (mL)", min = 100, max = 500, value = 250),
                      sliderInput("A_GI",  "Absorption area of the GI tract (cm²)", min = 100000, max = 400000, value = 200000),
+<<<<<<< HEAD
                      sliderInput("P_eff",   "Permeability coefficient through the intestinal wall (cm/s)", min = 1e-6, max = 1e-4, value = 7.5e-5, step = 1e-6),
                      sliderInput("Vd",   "Volume of distribution per kg (L/kg)", min = 0.01, max = 3, value = 1, step = 1e-2),
                      sliderInput("t0.5", "Half life (h)", min = 0.2, max = 40, value = 5, step = 0.2),
+=======
+                     sliderInput("P_eff",   "Permeation coefficient through the intestinal lumen (cm/s)", min = 1e-6, max = 1e-3, value = 7.5e-4, step = 5e-6),
+                     sliderInput("Vd",   "Volume of distribution per kg (L/kg)", min = 0.1, max = 2, value = 1, step = 1e-6),
+>>>>>>> f28cf876b98b6706fed4dd4b363d69a7f6216157
                      sliderInput("weight",   "Patient weight (kg)", min = 20, max = 100, value = 70, step = 1),
                      sliderInput("Cl",   "Total plasma clearance (mL/min/kg)", min = 0.5, max = 20, value = 15, step = 0.5),
                      sliderInput("t_transit", "Transit time through the GI (h)", min = 1, max = 10, value = 8, step = 1),

@@ -81,16 +81,16 @@ $$
 Based on this, it is clear that no simple expression for M(t) can be obtained. Furthermore, proceeding in an analytical manner would require further algebra, making everything algebraiecally complex and computationally slow. Hence, it is actually more efficient to solve a system of two differential equations numerically, namely:
 
 $$
-\frac{dC_{GI}}{dt} = \frac{1}{V_{GI}}C_sK(M_0-M)^{\frac{2}{3}} - \frac{K}{V_{GI}^2}(M_0-M)^{\frac{2}{3}}M - \frac{P_{eff}A}{V_{GI}}(C_{GI}), \quad (1.9)
+\frac{dC_{GI}}{dt} = \frac{1}{V_{GI}}C_sK(M_0-M)^{\frac{2}{3}} - \frac{K}{V_{GI}^2}(M_0-M)^{\frac{2}{3}}M - \frac{P_{eff}A}{V_{GI}}C_{GI}, \quad (1.9)
 $$
 
-which is simply equation 1.7 divided by $V_{GI}$ and with the added term $\frac{P_{eff}A}{V_{GI}}(C_{GI})$ representing absorption through the intestinal lumen. The second differential equation is:
+which is simply equation 1.7 divided by $V_{GI}$ and with the added term $\frac{P_{eff}A}{V_{GI}}C_{GI}$ representing absorption through the intestinal lumen. It should be noted that this does assume that $C_{GI} >> C_{portal vein}$ The second differential equation is:
 
 $$
 \frac{dC_{plasma}}{dt} = \frac{P_{eff}A}{V_d} C_{GI}-\frac{Cl}{V_d}C_{plasma} \quad (1.10)
 $$
 
-The numerical evaluation is done within R and is not explained further here. Note that the approach used here implicitly handles the emptying of the IR formulation. Indeed, if \$M = M_0\$ in equation 1.9, the change in GI concentration in time is just controlled by diffusion into the bloodstream. Note that this approach is different from the one used for the sustained release model below because the equations are very different. Gastric emptying, on the other hand, is not taken into account here because we assume that the drug is relatively water soluble and thus dissolves and diffuses entirely before the formulation is removed with the feces. This is not necessarily the case for an SR formulation if the coating is not permeable enough, which is described below.
+The numerical evaluation is done within R and is not explained further here. Note that the approach used here implicitly handles the emptying of the IR formulation. Indeed, if $M = M_0$ in equation 1.9, the change in GI concentration in time is just controlled by diffusion into the bloodstream. Note that this approach is different from the one used for the sustained release model below because the equations are very different. Gastric emptying, on the other hand, is not taken into account here because we assume that the drug is relatively water soluble and thus dissolves and diffuses entirely before the formulation is removed with the feces. This is not necessarily the case for an SR formulation if the coating is not permeable enough, which is described below.
 
 <br>
 
@@ -135,13 +135,13 @@ $$
 This will be the contribution from the dosage form to the total GI tract concentration. A very similar expression can be used to determine the drug disappearing from the GI tract due to absorption:
 
 $$
-\frac{dC_{GI}}{dt} = \frac{P_{eff}A}{V_{GI}}(C_{plasma}- C_{GI}) \quad (2.4)
+\frac{dC_{GI}}{dt} = \frac{P_{eff}A}{V_{GI}}(C_{portal}- C_{GI}) \quad (2.4)
 $$
 
-Now, in order to avoid a system of differential equations (which would result in more complicated math), let's assume that $C_{plasma} << C_{GI}$, and hence that the $C_{plasma}$ in the parentheses above can be neglected. Based on this, we get a relatively simple expression for $\frac{dC_{GI}}{dt}$:
+Now, in order to avoid a system of differential equations (which would result in more complicated math), let's assume that $C_{portal} << C_{GI}$, and hence that the $C_{portal}$ in the parentheses above can be neglected. Based on this, we get a relatively simple expression for $\frac{dC_{GI}}{dt}$:
 
 $$
-\frac{dC_{GI}}{dt} = \frac{DKA}{hV_{GI}}(C_{sat}-C_{GI}) - \frac{P_{eff}A}{V_{GI}}(C_{GI}) \quad (2.5).
+\frac{dC_{GI}}{dt} = \frac{DKA}{hV_{GI}}(C_{sat}-C_{GI}) - \frac{P_{eff}A}{V_{GI}}C_{GI} \quad (2.5).
 $$
 
 This differential equation is solvable through separation of variables. Renaming $\frac{DKA}{hV_{GI}}$ as $k_s$ and $\frac{P_{eff}A}{V_{GI}}$ as $k_a$, we can write:
@@ -159,7 +159,7 @@ $$
 The problem with the approach so far is that it does not consider the dosage form emptying. The release will keep increasing as long as the concentration in the GI tract is below the saturation concentration. Furthermore, the dosage form might exit the GI tract before release is complete. The first issue is solved by determining the time at which the dosage form is empty based on the equations above. The second issue is solved by comparing the time required to empty the dosage form with a certain GI transit time (that can be picked by you). As soon as either time is reached (whichever is smaller), the release from the formulation is set to zero, and thus:
 
 $$
-\frac{dC_{GI}}{dt} = - \frac{P_{eff}A}{V_{GI}}(C_{GI}) \quad (2.8),
+\frac{dC_{GI}}{dt} = - \frac{P_{eff}A}{V_{GI}}C_{GI} \quad (2.8),
 $$
 
 which is just first order elimination. The boundary conditions for this differential are a little more complex, since at $t = 0$, the concentration is now $C_{GI}(transit \  time)\  or\  C_{GI}(empty \  dosage \  form \  time)$ The calculation of the time required to empty the dosage form is a little more complex. Essentially, equation 7 is plugged into equation 2 and the resulting equation is solved using similar methods as before. One obtains the following expression for the mass of drug left, where D is the initial dose in the formulation, and $k'_s = k_sV_{GI}$:

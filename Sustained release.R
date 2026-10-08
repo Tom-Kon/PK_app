@@ -16,9 +16,13 @@ SustFunction <- function(input) {
       ka * x * (kS + ka) - kS * exp(-x * (kS + ka)) -
         ((DS * (kS + ka)^2) - (Cs * kS^2)) / (Cs * kS)
     }
-    t1S <- tryCatch(uniroot(fS, interval = c(1e-9, 1e6))$root,
+    t1S <- tryCatch(uniroot(fS, interval = c(1e-20, 1e20))$root,
                     error = function(e) NA)
+    
+    print(t1S/3600)
+    
     if (is.na(t1S) || !is.finite(t1S)) t1S <- 0.1
+    
     
     # calculate ZS
     if (t1S < t_transit) {t_crit <- t1S} else {t_crit <- t_transit}
