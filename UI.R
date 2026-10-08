@@ -23,7 +23,7 @@ UIFunc <- function(theme) {
             id = "tabs",
             tabPanel("General",
                      sliderInput("F", "Bioavailability (F)", min = 0, max = 1, value = 0.8, step = 0.01),
-                     sliderInput("Cs",  "API solubility in GI tract (mg/mL)", min = 0.000001, max = 500, value = 300, step = 0.01),
+                     sliderInput("Cs",  "API solubility in GI tract (mg/mL)", min = 0.01, max = 500, value = 300, step = 0.01),
                      sliderInput("V_GI",  "Solvent volume in the GI tract (mL)", min = 100, max = 500, value = 250),
                      sliderInput("A_GI",  "Absorption area of the GI tract (cm²)", min = 100000, max = 400000, value = 200000),
                      sliderInput("P_eff",   "Permeability coefficient through the intestinal wall (cm/s)", min = 1e-6, max = 1e-4, value = 7.5e-5, step = 1e-6),
