@@ -19,8 +19,6 @@ SustFunction <- function(input) {
     t1S <- tryCatch(uniroot(fS, interval = c(1e-20, 1e20))$root,
                     error = function(e) NA)
     
-    print(t1S/3600)
-    
     if (is.na(t1S) || !is.finite(t1S)) t1S <- 0.1
     
     
